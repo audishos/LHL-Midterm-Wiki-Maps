@@ -11,26 +11,6 @@ module.exports = {
       database : process.env.DB_NAME,
       port     : process.env.DB_PORT,
       ssl      : process.env.DB_SSL
-    },
-    migrations: {
-      directory: './db/migrations',
-      tableName: 'migrations'
-    },
-    seeds: {
-      directory: './db/seeds'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: process.env.DATABASE_URL + '?ssl=true',
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'migrations'
     }
   }
-
-};
+}
