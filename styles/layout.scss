@@ -1,7 +1,123 @@
 body {
-  background-color: #EEE;
-
-  h1 {
-    color: #244751;
-  }
+  font-size: 16px;
+  color: #fff;
+  background-color: #2C5663;
+  font-family: 'Oxygen', sans-serif;
 }
+
+/********************* HEADER ******************/
+.header-nav {
+  background-color: #d7e4e6;
+  border-radius: 0;
+  border: 0;
+}
+
+.navbar-brand {
+  padding-top: 25px;
+}
+
+.navbar-brand h1 { /* Name of the App*/
+  font-family: 'Lora', serif;
+  color: #000000;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #222;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+
+.navbar-brand h1:hover, .navbar-brand h1:focus {
+  text-decoration: none;
+  color:blue;
+}
+
+.navbar-image {
+    margin: 10px;
+}
+
+.navbar-image span {
+    color:#6b5555;
+}
+
+.navbar-brand img {
+    width:40px;
+    height:40px;
+}
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+  border: 1px solid #61122f;
+}
+.navbar-header button.navbar-toggle {
+  clear: both;
+  margin-top: -30px;
+}
+
+
+
+/********************* CONTENT DESCRIPTION******************/
+
+.content-description {
+    margin:30px;
+}
+
+.content-map, .content-iframe {
+    padding: 0px;
+}
+
+.content-iframe {
+  border: 2px solid;
+  border-radius: 10%;
+}
+
+
+
+
+
+
+
+
+
+
+/********************* FOOTER ******************/
+
+.panel-footer {
+  margin-top: 30px;
+  padding-top: 35px;
+  padding-bottom: 30px;
+  background-color: #222;
+  border-top: 0;
+}
+
+/* END FOOTER */
+
+
+
+
+/********** Extra-Large devices only **********/
+@media (min-width: 1200px) {
+
+
+}
+
+
+/********** Large devices only **********/
+@media (min-width: 992px) {
+  
+      
+}
+
+/********** Medium devices only **********/
+@media (min-width: 768px) {
+  
+      
+}
+    
+
+/********** Small devices only **********/
+@media (min-width: 576px) {
+  
+      
+}
+          
