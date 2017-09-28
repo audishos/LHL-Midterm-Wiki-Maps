@@ -20,6 +20,18 @@ module.exports = (DataHelpers) => {
         res.render("../views/create-map");
         return;
     })
+    //hard coded user id
+    router.post("/", (req, res) =>{
+        DataHelpers.addMap(req.body.map_name, req.body.description, 2,(err, results, mapid) =>{
+            if(err){
+                console.log(err);
+                console.log("error adding map to database");
+                res.status(503).send();
+                return;
+            }
+            res.redirect("/maps/"+mapid);
+        });
+    })
 
     //--------------------------SHOW Specific Map------------------------------------
 
@@ -36,12 +48,6 @@ module.exports = (DataHelpers) => {
         .catch( (err) => {
           console.error(err);
       });
-
-
-        Datahelpers.renderMap(1)
-        .then(results => console.log("Results are", results))
-        .catch(err => console.log("Oops, there is an error"));
-
     });
 
     //--------------------------EDIT Specific Map------------------------------------

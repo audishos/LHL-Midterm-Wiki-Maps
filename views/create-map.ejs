@@ -20,12 +20,12 @@
 </head>
 
 <body>
-<% include ./partials/nav %>
-   <form method="POST" action="./maps">
-    <label for="mapname">Name</label><br>
-    <input id="map_name" name="name"><br>
+<% include ./partials/_nav %>
+   <form method="POST" action="/maps">
+    <label for="map_name">Name</label><br>
+    <input id="map_name" name="map_name"><br>
     <label for="description">description</label><br>
-    <input id="descipriton"descipriton"><br>
+    <input id="description" name="description"><br>
     <input type="submit">
   </form>
 
