@@ -24,7 +24,13 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 const DataHelpers = require("./lib/data-helpers.js")(knex);
-
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+app.use(allowCrossDomain);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
@@ -43,9 +49,9 @@ app.use("/api/users", usersRoutes);
 app.use("/api/maps", mapsRoutes);
 
 // Home page
-// app.get("/", (req, res) => {
-//   res.render("index");
-// });
+app.get("/", (req, res) => {
+  res.render("createpoints");
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

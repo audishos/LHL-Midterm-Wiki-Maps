@@ -16,14 +16,14 @@ module.exports = (knex) => {
   });
 
 //--------------------------LOGIN Page------------------------------------
-  router.post("/users/login", (req, res) => {
+  router.post("/login", (req, res) => {
 
 
 
   });
 
   //--------------------------REGISTER Page------------------------------------
-  router.post("/users/register", (req, res) => {
+  router.post("/register", (req, res) => {
 
 
 
