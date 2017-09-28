@@ -25,13 +25,18 @@ module.exports = (DataHelpers) => {
     //--------------------------SHOW Specific Map------------------------------------
     router.get("/maps/:mapid", (req, res) => {
 
-        DataHelpers.renderTitleDesc(1)
-        .then( (res) => {
-          console.log(res);
+        var id = req.params.id;
+        DataHelpers.getMapObject(id)
+        .then( (mapData) => {
+          console.log(mapData);
+          res.render("view.ejs",{
+              mapdata: mapData
+          })
         })
         .catch( (err) => {
           console.error(err);
         });
+
 
         Datahelpers.renderMap(1)
         .then(results => console.log("Results are", results))

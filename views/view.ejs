@@ -13,25 +13,22 @@
 
     <!-- External CDNs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
   </head>
 <body>
 
   <header>
-    <!-- Nav to be imported from the tempalte files from Audi -->
+      <% include partials/_header %>
   </header>
-
-
-
-
 
   <div id="main-content" class="container">
 
     <div class="map-description">
 
-       <p id="map-name"> Name of the Map: </p>
-       <p id="map-description"> Description: </p>
+       <p id="map-name"> Name of the Map: <%= title %> </p>
+       <p id="map-description"> Description: <%= description %> </p>
 
+       
     </div>
 
     <div class="jumbotron content-map">
