@@ -18,6 +18,7 @@ module.exports = function makeDataHelpers(knex){
         callback(e, null);
       })
     },
+    
     //Function to obtain a Map object
     getMapObject: (map_id) => {
       const promise = new Promise( (resolve, reject) => {

@@ -43,7 +43,7 @@ renderMap(map_id) => {
   $("#map-container").html("");
 
 
-function initMap() {
+function createMapWithPoints() {
 
   var locations = [
     ['Bondi Beach', -33.890542, 151.274856, 4],
