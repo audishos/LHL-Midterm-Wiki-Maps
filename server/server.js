@@ -9,7 +9,7 @@ const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
 
-const knexConfig  = require("./knexfile");
+const knexConfig  = require("./../knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
@@ -24,6 +24,7 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+const DataHelpers = require("./lib/data-helpers.js");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
