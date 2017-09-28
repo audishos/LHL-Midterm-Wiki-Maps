@@ -26,22 +26,16 @@ module.exports = (DataHelpers) => {
 
     router.get("/:mapid", (req, res) => {
 
-        var id = req.params.id;
-        DataHelpers.getMapObject(id)
-        .then( (mapData) => {
-          console.log(mapData);
-          res.render("view.ejs",{
-              mapdata: mapData
-          })
-      })
-        .catch( (err) => {
-          console.error(err);
-      });
-
-
-        Datahelpers.renderMap(1)
-        .then(results => console.log("Results are", results))
-        .catch(err => console.log("Oops, there is an error"));
+        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            res.render("view.ejs",{
+                results: results
+            })
+        });
 
     });
 

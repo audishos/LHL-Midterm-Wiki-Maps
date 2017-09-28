@@ -63,18 +63,15 @@ module.exports = function makeDataHelpers(knex){
     },
     
     //Function to obtain a Map object
-    getMapObject: (map_id) => {
-      const promise = new Promise( (resolve, reject) => {
-        knex('maps').select()
-        .where('id', map_id)
-        .then( (res) => {
-          resolve(res);
-        })
-        .catch( (err) => {
-          reject(err);
-        })
+    getMapObject: (map_id, callback)=>{
+      knex('maps').where('id', map_id).select()
+      .then((results)=> {
+        callback(null, results);
       })
-      return promise;
+      .catch((e) =>{
+        callback(e, null);
+      })
     }
+
   }
 }
