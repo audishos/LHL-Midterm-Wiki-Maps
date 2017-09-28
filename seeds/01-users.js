@@ -1,10 +1,10 @@
 
 const faker = require('faker');
 
-exports.seed = function(knex, Promise) {
+exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
   return knex('users').del()
-    .then(function () {
+    .then(() => {
       return Promise.all([
         // Inserts seed entries
         knex('users').insert({
@@ -56,5 +56,6 @@ exports.seed = function(knex, Promise) {
           created_at: faker.date.past()
         })
       ]);
-    });
+    })
+
 };
