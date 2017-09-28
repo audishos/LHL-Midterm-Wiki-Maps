@@ -1,12 +1,13 @@
 module.exports = function makeDataHelpers(knex){
   return {
-
-    getMaps: () => {
+    getMaps: (callback)=>{
       knex('maps').select()
       .then((results) =>{
-        console.log(results);
+        callback(null, results);
       })
-      .catch((e) => e)
+      .catch((e) => {
+        callback(e, null);
+      });
     },
 
     getMapById: (mapId) => {
@@ -42,6 +43,29 @@ module.exports = function makeDataHelpers(knex){
       const promise = new Promise( (resolve, reject) => {
         knex('favourites').select()
         .where('user_id', userId)
+        .then( (res) => {
+          resolve(res);
+        })
+        .catch( (err) => {
+          reject(err);
+        })
+      })
+    },
+
+    getPointsOnMap: (mapid, callback)=>{
+      knex('points').where('map_id', '=', mapid).select()
+      .then((results)=> {
+        callback(null, results);
+      })
+      .catch((e) =>{
+        callback(e, null);
+      })
+    },
+    //Function to obtain a Map object
+    getMapObject: (map_id) => {
+      const promise = new Promise( (resolve, reject) => {
+        knex('maps').select()
+        .where('id', map_id)
         .then( (res) => {
           resolve(res);
         })
