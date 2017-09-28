@@ -34,13 +34,14 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+app.use(express.static("views"));
 
 
 const usersRoutes = require("./routes/users")(DataHelpers);
 const mapsRoutes = require("./routes/maps")(DataHelpers);
 // Mount all resource routes
-app.use("/api/users", usersRoutes);
-app.use("/api/maps", mapsRoutes);
+app.use("/users", usersRoutes);
+app.use("/maps", mapsRoutes);
 
 // Home page
 // app.get("/", (req, res) => {
