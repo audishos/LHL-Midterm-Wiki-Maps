@@ -11,8 +11,14 @@
   </head>
   <body>
       <% include ./partials/_nav %>
-      <% for (key in favourites) { %>
-        <div><%= favourites[key].title %></div>
+
+    <ul class="list-group">
+      <% for (fav of favourites) { %>
+      <a href="/maps/<%= fav.id %>" class="list-group-item list-group-item-action">
+      <%= fav.title %>
+      <span class="badge badge-default badge-pill">14</span>
+      </a>
       <% } %>
+    </ul>
   </body>
 </html>
