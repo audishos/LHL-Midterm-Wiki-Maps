@@ -2,6 +2,8 @@
 
 const express = require('express');
 const router  = express.Router();
+{/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBILOdZLJBP1ajrPSIzG6VZajst3WCW77k&callback=initMap"
+async defer></script> */}
 
 module.exports = (DataHelpers) => {
 
@@ -23,6 +25,17 @@ module.exports = (DataHelpers) => {
     //--------------------------SHOW Specific Map------------------------------------
     router.get("/maps/:mapid", (req, res) => {
 
+        DataHelpers.renderTitleDesc(1)
+        .then( (res) => {
+          console.log(res);
+        })
+        .catch( (err) => {
+          console.error(err);
+        });
+
+        Datahelpers.renderMap(1)
+        .then(results => console.log("Results are", results))
+        .catch(err => console.log("Oops, there is an error"));
 
 
     });
@@ -75,8 +88,6 @@ module.exports = (DataHelpers) => {
 
 
     });
-
-
 
 
 
