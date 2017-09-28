@@ -7,12 +7,12 @@ module.exports = (knex) => {
 
 //--------------------------ROOT URL------------------------------------
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .then((results) => {
-        res.json(results);
-    });
+    // knex("users")
+    //   .select("*")
+    //   .from("users")
+    //   .then((results) => {
+    //     res.json(results);
+    // });
   });
 
 //--------------------------LOGIN Page------------------------------------
@@ -29,7 +29,7 @@ module.exports = (knex) => {
 
   });
 
-  //--------------------------HARDCODED LOGIN------------------------------------  
+  //--------------------------HARDCODED LOGIN------------------------------------
   router.get("/login/:id", (req, res) => {
 
     req.session.user_id = req.params.id;
