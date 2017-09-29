@@ -5,7 +5,7 @@
     </head>
     <body>
           <% include partials/_nav %>    
-          
+
         <h1 class = "text-center">Here's a list of Maps! Get navigating!</h1>
         <div class="container table-header">
             <div class="row">
@@ -23,10 +23,11 @@
 
         <div class="list-of-maps" class="container">
             <% for(var i = 0; i < results.length; i++) { %>
+\
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                        <%= results[i].title %>
+                        <a href = "/maps/<%= i %>/view" > <%= results[i].title %> </a>
                         </div>
                         <div class="col-6">
                         <%= results[i].description %>
