@@ -53,12 +53,16 @@ function createMapWithPoints(data) {
   map.fitBounds(bounds);
 }
 
+
+
 //AJAX call to obtain the points to plot on the map
 function getPointsForMap() {
 
+  let holder = location.pathname.split('/');
+  let map_id = holder[holder.length - 2];
   var pointsHolder = {};
   $.ajax({
-    url: "/maps/1/points",
+    url: `/maps/${map_id}/points`,
     method: "GET",
     dataType: 'JSON',
     success: function (data){

@@ -23,7 +23,7 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW Specific Map------------------------------------
 
-    router.get("/:mapid", (req, res) => {
+    router.get("/:mapid/view", (req, res) => {
 
         DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
             if(error){
