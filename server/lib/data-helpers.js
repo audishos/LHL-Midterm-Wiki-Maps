@@ -54,11 +54,6 @@ module.exports = function makeDataHelpers(knex){
 
       const promise = new Promise( (resolve, reject) => {
         if (userId > 0) {
-          // knex('maps')
-          // .join('favourites', 'maps.id', 'favourites.map_id')
-          // .join('users', 'favourites.user_id', 'users.id')
-          // .select('maps.*')
-          // .where('users.id', userId)
           knex.raw(`
             select maps.*,
               (select count(*) from favourites
@@ -146,22 +141,30 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
-    getFavouriteCounts: (mapIds) => {
+    getUserContributions: (userId) => {
 
       return new Promise( (resolve, reject) => {
-        if (mapId.length > 0) {
-          knex('favourites').count('*')
-          .whereIn('map_id', mapIds)
+        if (userId > 0) {
+          knex.raw(`
+            select DISTINCT(maps.*),
+            (select count(*) from favourites
+               where map_id = maps.id)
+               as fav_count
+            from maps
+            join points on maps.id = points.map_id
+            join users on points.user_id = users.id
+            where users.id = ${userId}
+          `)
           .then( (res) => {
-            resolve(res);
+            resolve(res.rows);
           })
           .catch( (err) => {
             reject(err);
           })
         } else {
-          reject(`mapIds: ${mapIds} must contain at least 1 numeric value`);
+          reject(`userId: ${userId} must be > 0`);
         }
-      });
+      })
 
     },
 
@@ -186,23 +189,38 @@ module.exports = function makeDataHelpers(knex){
       })
     },
     addMap: (map_name, description, userId, callback) =>{
-      console.log(map_name);
-      console.log(description);
       knex.insert({
         "user_id":userId,
         "title":map_name,
         "description":description,
         "created_at": getDate()
       })
-      // .returning('id')
+      .returning('id')
       .into('maps')
-      .then((results)=>{
-        console.log(results);
-        callback(null, results);
+      .then((id)=>{
+        callback(null, id[0]);
       })
       .catch((error) =>{
         callback(error, null);
       })
+    },
+
+    getUser: (userId) => {
+
+      return new Promise( (resolve, reject) => {
+        if (userId > 0) {
+          knex('users').select('*').first().where('id', userId)
+          .then( (res) => {
+            resolve(res);
+          })
+          .catch( (err) => {
+            reject(err);
+          });
+        } else {
+          reject(`userId: ${userId} must be > 0`);
+        }
+      });
+
     }
 
   }
