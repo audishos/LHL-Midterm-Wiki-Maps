@@ -1,26 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Map</title>
-  <meta name="viewport" content="initial-scale=1.0">
-  <meta charset="utf-8">
-  <style>
-    /* Always set the map height explicitly to define the size of the div
-    * element that contains the map. */
-    #map {
-      height: 100%;
-    }
-    /* Optional: Makes the sample page fill the window. */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+  <% include ./partials/_head %>
 </head>
-
 <body>
-<% include ./partials/_nav %>
+  <% include ./partials/_nav %>
+  <h1>Create a new map</h1>
    <form method="POST" action="/maps">
     <label for="map_name">Name</label><br>
     <input id="map_name" name="map_name"><br>

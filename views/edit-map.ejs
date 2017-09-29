@@ -5,11 +5,7 @@
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
   <% include partials/_head %>
-  <style>
-    .highlighted{
-      background-color:red;
-    }
-  </style>
+
   <script src="/scripts/edit-map.js" ></script>
 </head>
 
@@ -21,14 +17,16 @@
     <div class="col-sm-2">
     </div>
     <div class="col-sm-2">
+    <h2>Which points to delete</h2>
       <div id="points">
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="jumbotron content-map" id="map-container"></div>
+      <div class="jumbotron display-edit-map" id="map-container"></div>
 
     </div>
     <div class="col-sm-2">
+    <button class="save-button"><h1>SAVE CHANGES</h1></button>
     </div>
   </div>
 </div>

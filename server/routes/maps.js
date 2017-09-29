@@ -22,14 +22,15 @@ module.exports = (DataHelpers) => {
     })
     //hard coded user id
     router.post("/", (req, res) =>{
-        DataHelpers.addMap(req.body.map_name, req.body.description, 2,(err, results, mapid) =>{
+        DataHelpers.addMap(req.body.map_name, req.body.description, req.session.user_id, (err, mapId) =>{
             if(err){
                 console.log(err);
                 console.log("error adding map to database");
                 res.status(503).send();
                 return;
+            } else {
+              res.redirect(`/maps/${mapId}/edit`);
             }
-            res.redirect("/maps/"+mapid);
         });
     })
     //----------------------------Get info on specifc map-------------------
@@ -106,8 +107,16 @@ module.exports = (DataHelpers) => {
     router.put("/points/:pointid", (req, res) => {
     });
 
-    //--------------------------DELETE Specific Point------------------------------------
-    router.delete("/points/:pointid", (req, res) => {
+    //--------------------------DELETE Point for map------------------------------------
+    router.delete("/:mapid/points", (req, res) => {
+        DataHelpers.delete(req.params.arrOfPoints, (error, results)=>{
+            if(error){
+                console.log("points don't exist or unauthorized")
+                res.status(401).send();
+                return;
+            }
+            res.status(200).send();
+        })
     });
 
     router.post("/:mapid/favourites", (req, res) => {
