@@ -1,68 +1,46 @@
 <html lang="en">
   <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MAP ATTACK</title>
-
-    <!-- CSS/SASS/BOOTSTRAP STYLESHEETS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">   
-    <link rel="stylesheet" href="../styles/layout.css">
-
-    <!-- External CDNs -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <% include partials/_head %>
   </head>
-<body>
+  <body>
+    <% include partials/_nav %>
 
-  <header>
+    <div id="main-content" class="container">
 
-  </header>
+      <div class="map-description">
 
-  <div id="main-content" class="container">
+        <p class="map-name"> Name of the Map: <%= template.title %> </p>
+        <p class="map-description"> Description: <%= template.description %> </p>
+        <p class = "hearts-holder text-center">
+          <span><i class="fa fa-heart" aria-hidden="true"></i></span>
+          <span>###</span>
+        </p>
 
-    <div class="map-description">
+        
+      </div>
 
-       <p id="map-name"> Name of the Map: <%= results.title %> </p>
-       <p id="map-description"> Description: <%= results.description %> </p>
-
-       
-    </div>
-
-    <div class="jumbotron content-map">
-        <div id="map-container"class = "container content-iframe">
-            <!-- This div will hold the dynamically rendered map.  -->
-        </div>
-    </div>
-
-  </div><!-- End of #main-content -->
-
-
+      <div class="jumbotron content-map">
+          <div id="map-container"class = "container content-iframe" style="height: 500px; width: 690px;">
+              <!-- This div holds the dynamically rendered map.-->
+          </div>
+          
+      </div>
 
 
+    </div><!-- End of #main-content -->
+    
 
 
+    <!-- API Links to load the maps -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfyL3GmxEPKHIVTMAvnz84eC_8I7gRHF8">
+    </script>
+    <script src="/scripts/app.js" ></script>
+  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <footer class="panel-footer">
-        <!-- Nav to be imported from the tempalte files from Audi -->
-  </footer>
-
-</body>
+  </body>
 </html>
+
+

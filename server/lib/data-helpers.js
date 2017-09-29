@@ -1,3 +1,14 @@
+function getDate(){
+  var date;
+  date = new Date();
+  date = date.getUTCFullYear() + '-' +
+  ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+  ('00' + date.getUTCDate()).slice(-2) + ' ' +
+  ('00' + date.getUTCHours()).slice(-2) + ':' +
+  ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+  ('00' + date.getUTCSeconds()).slice(-2);
+  return date;
+}
 module.exports = function makeDataHelpers(knex){
   return {
     getMaps: (callback)=>{
@@ -165,13 +176,32 @@ module.exports = function makeDataHelpers(knex){
     },
 
     //Function to obtain a Map object
-    getMapObject: (map_id, callback)=>{
-      knex('maps').where('id', map_id).select()
+    getMapObject: (mapid, callback)=>{
+      knex('maps').where('id', mapid).select()
       .then((results)=> {
         callback(null, results);
       })
       .catch((e) =>{
         callback(e, null);
+      })
+    },
+    addMap: (map_name, description, userId, callback) =>{
+      console.log(map_name);
+      console.log(description);
+      knex.insert({
+        "user_id":userId,
+        "title":map_name,
+        "description":description,
+        "created_at": getDate()
+      })
+      // .returning('id')
+      .into('maps')
+      .then((results)=>{
+        console.log(results);
+        callback(null, results);
+      })
+      .catch((error) =>{
+        callback(error, null);
       })
     }
 
