@@ -22,14 +22,15 @@ module.exports = (DataHelpers) => {
     })
     //hard coded user id
     router.post("/", (req, res) =>{
-        DataHelpers.addMap(req.body.map_name, req.body.description, 2,(err, results, mapid) =>{
+        DataHelpers.addMap(req.body.map_name, req.body.description, req.session.user_id, (err, mapId) =>{
             if(err){
                 console.log(err);
                 console.log("error adding map to database");
                 res.status(503).send();
                 return;
+            } else {
+              res.redirect(`/maps/${mapId}/edit`);
             }
-            res.redirect("/maps/"+mapid);
         });
     })
     //----------------------------Get info on specifc map-------------------

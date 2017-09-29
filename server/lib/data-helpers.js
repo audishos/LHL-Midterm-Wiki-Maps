@@ -189,19 +189,16 @@ module.exports = function makeDataHelpers(knex){
       })
     },
     addMap: (map_name, description, userId, callback) =>{
-      console.log(map_name);
-      console.log(description);
       knex.insert({
         "user_id":userId,
         "title":map_name,
         "description":description,
         "created_at": getDate()
       })
-      // .returning('id')
+      .returning('id')
       .into('maps')
-      .then((results)=>{
-        console.log(results);
-        callback(null, results);
+      .then((id)=>{
+        callback(null, id[0]);
       })
       .catch((error) =>{
         callback(error, null);
