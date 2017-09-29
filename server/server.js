@@ -8,6 +8,7 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const cookieSession = require('cookie-session');
 
 const knexConfig  = require("./../knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -20,6 +21,14 @@ const knexLogger  = require('knex-logger');
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+
+app.use(cookieSession({
+  name: "session",
+  keys: [
+    "b370de14e94142d4a108a79df6d0e265a0ba3fa2e10f57c4b3a892b74c9f84aa",
+    "26cb941323ef3be96a33e7dec1a6e8e4a9075e3f55b4eb818a292c6ad368f0e9"
+  ]
+}));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));

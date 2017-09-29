@@ -39,7 +39,7 @@ module.exports = (DataHelpers) => {
 
   router.get("/favourites", (req, res) => {
 
-    DataHelpers.getUserFavourites(1)
+    DataHelpers.getUserFavourites(req.session.user_id)
     .then( (response) => {
       console.log(response);
       const templateVars = { favourites: response };
