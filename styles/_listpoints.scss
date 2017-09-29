@@ -1,0 +1,28 @@
+
+.display-edit-map{
+  height: 700px
+}
+
+.point{
+  background-color:beige;
+}
+
+.highlighted{
+  background-color: red;
+}
+.marker-content{
+  max-width: 300px;
+  display: flex;
+}
+.point-image{
+  width: 300px;
+}
+.save-button{
+  background-color: #5cb85c;
+  border-style: none;
+}
+.save-button:hover{
+  background-color: darken(#5cb85c, 5);
+  border-style: solid;
+  border-color:black;
+}
