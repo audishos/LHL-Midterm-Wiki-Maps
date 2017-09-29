@@ -1,8 +1,8 @@
 "use strict";
 
 const express = require('express');
-const bodyParser  = require("body-parser");
 const router  = express.Router();
+const bodyParser  = require("body-parser");
 {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBILOdZLJBP1ajrPSIzG6VZajst3WCW77k&callback=initMap"
 async defer></script> */}
 
@@ -27,13 +27,14 @@ module.exports = (DataHelpers) => {
     router.get("/:mapid", (req, res) => {
 
         DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-            console.log(error);
+            console.log("Reached here");
             if(error){
                 res.status(500).send()
                 return;
             }
+            console.log("Here you go",results[0]);
             res.render("view.ejs",{
-                results: results
+                template: results[0]
             })
         });
 

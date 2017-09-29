@@ -63,8 +63,8 @@ module.exports = function makeDataHelpers(knex){
     },
     
     //Function to obtain a Map object
-    getMapObject: (map_id, callback)=>{
-      knex('maps').where('id', map_id).select()
+    getMapObject: (mapid, callback)=>{
+      knex('maps').where('id', mapid).select()
       .then((results)=> {
         callback(null, results);
       })

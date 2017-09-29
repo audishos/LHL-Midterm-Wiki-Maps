@@ -9,90 +9,70 @@ $(() => {
   });;
 });
 
-//Function to calulate the coordinates for the center of the map
-// calcuateCenterOfMap: (map_id) => {
-//   let latMax = knex('points').where({
-//     map_id: map_id
-//   }).max('latitude');
-
-//   let latMin = knex('points').where({
-//     map_id: map_id
-//   }).min('latitude');
-
-//   let longMax = knex('points').where({
-//     map_id: map_id
-//   }).max('longitude');
-
-//   let longMin = knex('points').where({
-//     map_id: map_id
-//   }).min('longitude');
-
-//   return {
-//     latCenter: (latMax + latMin)/2,
-//     longCenter: (longMax + longMin)/2
-//   }
-        
-// }
-
-//AJAX Call to /maps/:mapid/points
-getPointsForMap();
-
-
-// Function to create a map and append it to view.html
-renderMap(map_id) => {
-  $("#map-container").html("");
-
-
-function createMapWithPoints() {
-
-  var locations = [
-    ['Bondi Beach', -33.890542, 151.274856, 4],
-    ['Coogee Beach', -33.923036, 151.259052, 5],
-    ['Cronulla Beach', -34.028249, 151.157507, 3],
-    ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-    ['Maroubra Beach', -33.950198, 151.259302, 1]
+var markers = [
+  ['Location A', -33.890542, 151.274856],
+  ['Location B', -33.923036, 151.259052],
+  ['Location C', -70.028249, 151.157507],
+  ['Location D', -33.80010128657071, 151.28747820854187],
+  ['Location E', -45.950198, 151.259302]
   ];
 
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 10,
-    center: new google.maps.LatLng(-33.92, 151.25),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-
-  var infowindow = new google.maps.InfoWindow();
-
-  var marker, i;
-
-  for (i = 0; i < locations.length; i++) { 
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-      map: map
+function createMapWithPoints(data) {
+  //Converting too array of arrays
+  var markers = data.map(function(obj) {
+    return Object.keys(obj).sort().map(function(key) { 
+      return obj[key];
     });
+  });
+  
+  console.log("Running the createMapwithPoints fn now!");
+  var myOptions = {
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+  };
+  var map = new google.maps.Map(document.getElementById("map-container"),myOptions);
+  var infowindow = new google.maps.InfoWindow(); 
+  var marker, i;
+  var bounds = new google.maps.LatLngBounds();
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-      return function() {
-        infowindow.setContent(locations[i][0]);
-        infowindow.open(map, marker);
-      }
-    })(marker, i));
+  for (i = 0; i < markers.length; i++) { 
+      var pos = new google.maps.LatLng(markers[i][1], markers[i][2]);
+      bounds.extend(pos);
+      marker = new google.maps.Marker({
+          position: pos,
+          map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+              infowindow.setContent(markers[i][0]);
+              infowindow.open(map, marker);
+          }
+      })(marker, i));
   }
-
+  map.fitBounds(bounds);
 }
 
 //AJAX call to obtain the points to plot on the map
-getPointsForMap() => {
+function getPointsForMap() {
   $.ajax({
     url: "/maps/:mapid/points",
     method: "GET",
     dataType: 'JSON',
     success: function (data){
-      renderMap(data);
+      createMapWithPoints(data);
+      console.log(data);
+    },
+    error: function(){
+      console.log("Logout Error");
     }
-  })
+  });
 }
 
 
+//Creating an AJAX Request to maps/:mapid/points
+$(document).ready(function () {
+
+  getPointsForMap();
 
 
-
-
+});

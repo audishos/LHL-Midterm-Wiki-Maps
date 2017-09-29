@@ -1,13 +1,9 @@
 <html lang="en">
   <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MAP ATTACK</title>
 
     <!-- CSS/SASS/BOOTSTRAP STYLESHEETS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/layout.css">
 
     <!-- External CDNs -->
@@ -17,52 +13,29 @@
 <body>
 
   <header>
-
+    <% include partials/_nav %>
   </header>
-
   <div id="main-content" class="container">
 
     <div class="map-description">
 
-       <p id="map-name"> Name of the Map: <%= results.title %> </p>
-       <p id="map-description"> Description: <%= results.description %> </p>
+       <p id="map-name"> Name of the Map: <%= template.title %> </p>
+       <p id="map-description"> Description: <%= template.description %> </p>
 
        
     </div>
 
     <div class="jumbotron content-map">
         <div id="map-container"class = "container content-iframe">
+
             <!-- This div will hold the dynamically rendered map.  -->
+
         </div>
     </div>
 
   </div><!-- End of #main-content -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <footer class="panel-footer">
-        <!-- Nav to be imported from the tempalte files from Audi -->
-  </footer>
 
 </body>
 </html>
