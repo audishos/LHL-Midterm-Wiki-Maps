@@ -37,7 +37,7 @@ function createMapWithPoints(data) {
   var bounds = new google.maps.LatLngBounds();
 
   for (i = 0; i < markers.length; i++) { 
-      var pos = new google.maps.LatLng(markers[i][1], markers[i][2]);
+      var pos = new google.maps.LatLng(markers[i][4], markers[i][5]);
       bounds.extend(pos);
       marker = new google.maps.Marker({
           position: pos,
@@ -45,7 +45,7 @@ function createMapWithPoints(data) {
       });
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-              infowindow.setContent(markers[i][0]);
+              infowindow.setContent(markers[i][7]);
               infowindow.open(map, marker);
           }
       })(marker, i));
