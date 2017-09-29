@@ -70,24 +70,11 @@ module.exports = (DataHelpers) => {
       ])
       .then( (response) => {
         // res.render("favourites", templateVars);
-        res.json(templateVars)
+        res.render("profile", templateVars)
       })
     } else {
       res.status(401).send("you must be logged in to view your profile!");
     }
-
-  });
-
-  router.get("/favourites", (req, res) => {
-
-    DataHelpers.getUserFavourites(req.session.user_id)
-    .then( (response) => {
-      const templateVars = { favourites: response };
-      res.render("favourites", templateVars);
-    })
-    .catch( (err) => {
-      console.error(err);
-    });
 
   });
 
