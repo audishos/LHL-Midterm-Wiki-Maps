@@ -42,6 +42,17 @@ module.exports = (DataHelpers) => {
                 res.status(500).send()
                 return;
             }
+            res.send(results)
+        });
+    });
+    //--------------------------SHOW Specific Map------------------------------------
+    router.get("/:mapid/view", (req, res) => {
+        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
             console.log(results);
             res.render("view.ejs",{
                 template: results[0]
@@ -50,6 +61,19 @@ module.exports = (DataHelpers) => {
     });
     //--------------------------EDIT Page for Specific Map--------------------------------
     router.get("/:mapid/edit", (req, res) =>{
+        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            if(results){
+                let templateVars = {maps:results[0]}
+                res.render("edit-map.ejs",{
+                    templateVars: templateVars
+                })
+            }
+        });
     });
     //--------------------------EDIT Specific Map------------------------------------
     router.put("/:mapid", (req, res) => {
