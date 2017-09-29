@@ -1,4 +1,5 @@
 var mapId = 2;
+var map;
 function initMap(){
   // renderMap(mapId)
   map = new google.maps.Map(document.getElementById('map'), {
@@ -6,25 +7,20 @@ function initMap(){
     //should be a calculated center using point position from db
     center: {lat: -33.872, lng: 151.252},
   });
+
+  google.maps.event.addListenerOnce(map, 'idle', function(){
+    // do something only the first time the map is loaded
+    renderPoints();
+  });
 }
 
-function addMarker(coordsObj){
+function addMarker(point, bounds){
+  var pos = {lat:Number(point.latitude),lng:Number(point.longitude)};
   var marker = new google.maps.Marker({
-    position:coordsObj,
+    position:pos,
     map:map
   });
-  allMarkers.push(marker);
-  var contentString = `
-  <h1>Fill out the Form and press submit to create POI!!</h1>
-  <form method="POST" action="./mapsid/edit">
-  <label for="mapname">Name</label><br>
-  <input id="map_name" name="name"><br>
-  <label for="description">description</label><br>
-  <input id="descipriton" name="descipriton"><br>
-  <label for="map_pic_url">url</label><br>
-  <input id="map_pic_url" name="map_pic_url"><br>
-  <input type="submit">
-  </form>`
+  var contentString = "<h1>" + point.title + "</h1><br><p>" + point.description + "</p>";
   var infowindow = new google.maps.InfoWindow({
     content: contentString
   })
@@ -33,9 +29,9 @@ function addMarker(coordsObj){
     infowindow.open(map, marker);
   });
   marker.addListener('dblclick', function(event){
-        // debugger;
-        marker.setMap(null);
-      });
+    // debugger;
+    marker.setMap(null);
+  });
 }
 
 function getMapInfo(callback){
@@ -51,13 +47,13 @@ function getMapInfo(callback){
   })
 }
 
-function getPointsOnMap(){
+function getPointsOnMap(callback){
   $.ajax({
     url:"/maps/"+mapId+"/points",
     method:"GET",
     success: function(data){
       // console.log(data);
-      return data;
+      callback(data);
     },
     error: function(err){
       console.log(err);
@@ -65,12 +61,20 @@ function getPointsOnMap(){
   })
 }
 
-function renderPoints(arrOfPoints){
-  for(var point = 0; point < arrOfPoints.length; point++){
-
-  }
+function renderPoints(){
+  getPointsOnMap(function(arrOfPoints){
+    var bounds = new google.maps.LatLngBounds();
+    for(var point = 0; point < arrOfPoints.length; point++){
+      addMarker(arrOfPoints[point])
+      debugger;
+      var lat = Number(arrOfPoints[point].latitude);
+      var lng = Number(arrOfPoints[point].longitude);
+      bounds.extend({lat,lng});
+    }
+    map.fitBounds(bounds);
+  })
 }
 $(document).ready(function(){
-  renderPoints(getPointsOnMap());
+  initMap();
 
 });
