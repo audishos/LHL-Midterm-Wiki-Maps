@@ -58,10 +58,19 @@ module.exports = (DataHelpers) => {
         })
         .catch( (err) => {
           res.status(400).send(error);
+        }),
+
+        DataHelpers.getUserContributions(userId)
+        .then( (response) => {
+          templateVars.contributions = response;
+        })
+        .catch( (error) => {
+          res.status(400).send(error);
         })
       ])
       .then( (response) => {
-        res.render("favourites", templateVars);
+        // res.render("favourites", templateVars);
+        res.json(templateVars)
       })
     } else {
       res.status(401).send("you must be logged in to view your profile!");

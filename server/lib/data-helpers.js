@@ -54,11 +54,6 @@ module.exports = function makeDataHelpers(knex){
 
       const promise = new Promise( (resolve, reject) => {
         if (userId > 0) {
-          // knex('maps')
-          // .join('favourites', 'maps.id', 'favourites.map_id')
-          // .join('users', 'favourites.user_id', 'users.id')
-          // .select('maps.*')
-          // .where('users.id', userId)
           knex.raw(`
             select maps.*,
               (select count(*) from favourites
@@ -143,6 +138,33 @@ module.exports = function makeDataHelpers(knex){
           reject(`mapId: ${mapId} must be > 0`);
         }
       });
+
+    },
+
+    getUserContributions: (userId) => {
+
+      return new Promise( (resolve, reject) => {
+        if (userId > 0) {
+          knex.raw(`
+            select DISTINCT(maps.*),
+            (select count(*) from favourites
+               where map_id = maps.id)
+               as fav_count
+            from maps
+            join points on maps.id = points.map_id
+            join users on points.user_id = users.id
+            where users.id = ${userId}
+          `)
+          .then( (res) => {
+            resolve(res.rows);
+          })
+          .catch( (err) => {
+            reject(err);
+          })
+        } else {
+          reject(`userId: ${userId} must be > 0`);
+        }
+      })
 
     },
 
