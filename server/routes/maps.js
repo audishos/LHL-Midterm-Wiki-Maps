@@ -110,5 +110,47 @@ module.exports = (DataHelpers) => {
     router.delete("/points/:pointid", (req, res) => {
     });
 
+    router.post("/:mapid/favourites", (req, res) => {
+
+      const userId = req.session.user_id;
+      const mapId = req.params.mapid;
+
+      if (userId > 0 && mapId > 0) {
+        DataHelpers.addFavourite(userId, mapId)
+        .then( (response) => {
+          res.status(201).send();
+        })
+        .catch( (error) => {
+          res.status(400).send(error);
+        });
+      } else if (mapId <= 0) {
+        res.status(400).send(`mapId: ${mapId} must be > 0`);
+      } else {
+        res.status(401).send(`you must be logged in to do this!`);
+      }
+
+    });
+
+    router.delete("/:mapid/favourites", (req, res) => {
+
+      const userId = req.session.user_id;
+      const mapId = req.params.mapid;
+
+      if (userId > 0 && mapId > 0) {
+        DataHelpers.deleteFavourite(userId, mapId)
+        .then( (response) => {
+          res.status(200).send();
+        })
+        .catch( (error) => {
+          res.status(400).send(error);
+        });
+      } else if (mapId <= 0) {
+        res.status(400).send(`mapId: ${mapId} must be > 0`);
+      } else {
+        res.status(401).send(`you must be logged in to do this!`);
+      }
+
+    });
+
     return router;
 }
