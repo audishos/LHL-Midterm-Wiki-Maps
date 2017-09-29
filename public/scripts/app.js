@@ -10,29 +10,29 @@ $(() => {
 });
 
 //Function to calulate the coordinates for the center of the map
-calcuateCenterOfMap: (map_id) => {
-  let latMax = knex('points').where({
-    map_id: map_id
-  }).max('latitude');
+// calcuateCenterOfMap: (map_id) => {
+//   let latMax = knex('points').where({
+//     map_id: map_id
+//   }).max('latitude');
 
-  let latMin = knex('points').where({
-    map_id: map_id
-  }).min('latitude');
+//   let latMin = knex('points').where({
+//     map_id: map_id
+//   }).min('latitude');
 
-  let longMax = knex('points').where({
-    map_id: map_id
-  }).max('longitude');
+//   let longMax = knex('points').where({
+//     map_id: map_id
+//   }).max('longitude');
 
-  let longMin = knex('points').where({
-    map_id: map_id
-  }).min('longitude');
+//   let longMin = knex('points').where({
+//     map_id: map_id
+//   }).min('longitude');
 
-  return {
-    latCenter: (latMax + latMin)/2,
-    longCenter: (longMax + longMin)/2
-  }
+//   return {
+//     latCenter: (latMax + latMin)/2,
+//     longCenter: (longMax + longMin)/2
+//   }
         
-}
+// }
 
 //AJAX Call to /maps/:mapid/points
 getPointsForMap();
@@ -43,7 +43,7 @@ renderMap(map_id) => {
   $("#map-container").html("");
 
 
-function initMap() {
+function createMapWithPoints() {
 
   var locations = [
     ['Bondi Beach', -33.890542, 151.274856, 4],
