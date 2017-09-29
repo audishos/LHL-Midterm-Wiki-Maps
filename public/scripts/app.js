@@ -12,22 +12,22 @@
 function createMapWithPoints(data) {
   //Converting to array of arrays - Warning: Array is inverted
   var markers = data.map(function(obj) {
-    return Object.keys(obj).sort().map(function(key) { 
+    return Object.keys(obj).sort().map(function(key) {
       return obj[key];
     });
   });
-  
+
   console.log("Arr of arr is:",markers);
   var myOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
   };
   var map = new google.maps.Map(document.getElementById("map-container"),myOptions);
-  var infowindow = new google.maps.InfoWindow(); 
+  var infowindow = new google.maps.InfoWindow();
   var marker, i;
   var bounds = new google.maps.LatLngBounds();
 
-  for (i = 0; i < markers.length; i++) { 
+  for (i = 0; i < markers.length; i++) {
       var pos = new google.maps.LatLng(markers[i][4], markers[i][5]);
       bounds.extend(pos);
       marker = new google.maps.Marker({
