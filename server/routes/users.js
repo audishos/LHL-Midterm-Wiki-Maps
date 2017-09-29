@@ -37,11 +37,42 @@ module.exports = (DataHelpers) => {
 
   });
 
+  router.get("/profile", (req, res) => {
+
+    const userId = req.session.user_id;
+    let templateVars = {};
+
+    if (userId) {
+      Promise.all([
+        DataHelpers.getUser(userId)
+        .then( (response) => {
+          templateVars.user = response;
+        })
+        .catch( (error) => {
+          res.status(400).send(error);
+        }),
+
+        DataHelpers.getUserFavourites(userId)
+        .then( (response) => {
+          templateVars.favourites = response;
+        })
+        .catch( (err) => {
+          res.status(400).send(error);
+        })
+      ])
+      .then( (response) => {
+        res.render("favourites", templateVars);
+      })
+    } else {
+      res.status(401).send("you must be logged in to view your profile!");
+    }
+
+  });
+
   router.get("/favourites", (req, res) => {
 
     DataHelpers.getUserFavourites(req.session.user_id)
     .then( (response) => {
-      //res.send(response.rows);
       const templateVars = { favourites: response };
       res.render("favourites", templateVars);
     })

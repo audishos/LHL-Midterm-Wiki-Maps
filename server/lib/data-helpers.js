@@ -146,25 +146,6 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
-    getFavouriteCounts: (mapIds) => {
-
-      return new Promise( (resolve, reject) => {
-        if (mapId.length > 0) {
-          knex('favourites').count('*')
-          .whereIn('map_id', mapIds)
-          .then( (res) => {
-            resolve(res);
-          })
-          .catch( (err) => {
-            reject(err);
-          })
-        } else {
-          reject(`mapIds: ${mapIds} must contain at least 1 numeric value`);
-        }
-      });
-
-    },
-
     getPointsOnMap: (mapid, callback)=>{
       knex('points').where('map_id', '=', mapid).select()
       .then((results)=> {
@@ -203,6 +184,24 @@ module.exports = function makeDataHelpers(knex){
       .catch((error) =>{
         callback(error, null);
       })
+    },
+
+    getUser: (userId) => {
+
+      return new Promise( (resolve, reject) => {
+        if (userId > 0) {
+          knex('users').select('*').first().where('id', userId)
+          .then( (res) => {
+            resolve(res);
+          })
+          .catch( (err) => {
+            reject(err);
+          });
+        } else {
+          reject(`userId: ${userId} must be > 0`);
+        }
+      });
+
     }
 
   }
