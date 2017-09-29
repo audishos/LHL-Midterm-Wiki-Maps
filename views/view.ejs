@@ -5,10 +5,13 @@
   <body>
     <% include partials/_nav %>
 
-    <div id="map-details-container" class="container-fluid">
+    <div id="map-details-container" class="container-fluid" data-map-id="<%= template.id %>">
       <div class="row">
         <div class="col-md-10 offset-md-1" align="center">
-          <h1><%= template.title %></h1>
+          <h1>
+            <%= template.title %>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+          </h1>
         </div>
       </div>
       <div class="row">
@@ -25,7 +28,7 @@
 
     <!-- API Links to load the maps -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/scripts/app.js" ></script>
+    <script src="/scripts/view-map.js" ></script>
   </body>
 </html>
 
