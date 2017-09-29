@@ -4,30 +4,34 @@
   <title>edit Map</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVs-nA4gx8MttxUZieOa2IeI_RJEt3O_Y">
-  </script>
-  <script src="/scripts/edit-map.js" ></script>
+  <% include partials/_head %>
   <style>
-    /* Always set the map height explicitly to define the size of the div
-    * element that contains the map. */
-    #map {
-      height: 100%;
-    }
-    /* Optional: Makes the sample page fill the window. */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    .highlighted{
+      background-color:red;
     }
   </style>
+  <script src="/scripts/edit-map.js" ></script>
 </head>
 
 <body>
-  <% include ./partials/_nav %>
+  <% include partials/_nav %>
   <br>
-  <h1><%= templateVars.maps.title %></h1>
-  <div id="map"></div>
+  <h1 class="main-content"><%= templateVars.maps.title %></h1>
+  <div id="main-content" class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-2">
+      <div id="points">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="jumbotron content-map" id="map-container"></div>
+
+    </div>
+    <div class="col-sm-2">
+    </div>
+  </div>
+</div>
 </body>
 
 </html>

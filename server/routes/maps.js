@@ -32,12 +32,10 @@ module.exports = (DataHelpers) => {
             res.redirect("/maps/"+mapid);
         });
     })
-
-    //--------------------------SHOW Specific Map------------------------------------
-
-    router.get("/:mapid/view", (req, res) => {
-
+    //----------------------------Get info on specifc map-------------------
+    router.get("/:mapid", (req, res) => {
         DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+            console.log(error);
             if(error){
                 res.status(500).send()
                 return;
