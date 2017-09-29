@@ -1,3 +1,14 @@
+function getDate(){
+  var date;
+  date = new Date();
+  date = date.getUTCFullYear() + '-' +
+  ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+  ('00' + date.getUTCDate()).slice(-2) + ' ' +
+  ('00' + date.getUTCHours()).slice(-2) + ':' +
+  ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+  ('00' + date.getUTCSeconds()).slice(-2);
+  return date;
+}
 module.exports = function makeDataHelpers(knex){
   return {
     getMaps: (callback)=>{
@@ -41,8 +52,11 @@ module.exports = function makeDataHelpers(knex){
 
     getUserFavourites: (userId) => {
       const promise = new Promise( (resolve, reject) => {
-        knex('favourites').select()
-        .where('user_id', userId)
+        knex('maps')
+        .join('favourites', 'maps.id', 'favourites.map_id')
+        .join('users', 'favourites.user_id', 'users.id')
+        .select('maps.*')
+        .where('users.id', userId)
         .then( (res) => {
           resolve(res);
         })
@@ -50,6 +64,7 @@ module.exports = function makeDataHelpers(knex){
           reject(err);
         })
       })
+      return promise;
     },
 
     getPointsOnMap: (mapid, callback)=>{
@@ -61,7 +76,7 @@ module.exports = function makeDataHelpers(knex){
         callback(e, null);
       })
     },
-    
+
     //Function to obtain a Map object
     getMapObject: (mapid, callback)=>{
       knex('maps').where('id', mapid).select()
@@ -70,6 +85,25 @@ module.exports = function makeDataHelpers(knex){
       })
       .catch((e) =>{
         callback(e, null);
+      })
+    },
+    addMap: (map_name, description, userId, callback) =>{
+      console.log(map_name);
+      console.log(description);
+      knex.insert({
+        "user_id":userId,
+        "title":map_name,
+        "description":description,
+        "created_at": getDate()
+      })
+      // .returning('id')
+      .into('maps')
+      .then((results)=>{
+        console.log(results);
+        callback(null, results);
+      })
+      .catch((error) =>{
+        callback(error, null);
       })
     }
 

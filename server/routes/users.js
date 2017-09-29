@@ -39,30 +39,11 @@ module.exports = (DataHelpers) => {
 
   router.get("/favourites", (req, res) => {
 
-    DataHelpers.getUserFavourites(1)
+    DataHelpers.getUserFavourites(req.session.user_id)
     .then( (response) => {
-      let mapIds = [];
-      response.map( (fav) => {
-        mapIds.push(fav.map_id);
-      });
-      DataHelpers.getMapsByIds(mapIds)
-      .then( (maps) => {
-        let templateVars = { favourites: [] };
-        for (key of maps) {
-          templateVars.favourites.push({
-            id: maps[key].id,
-            title: maps[key].title
-          })
-        }
-        console.log(templateVars);
-      })
-      .catch( (err) => {
-        console.error(err);
-      })
-      // let templateVars = { favourites: [] };
-      // console.log(response);
-        // console.log(res.title);
-        //res.render("favourites", templateVars);
+      console.log(response);
+      const templateVars = { favourites: response };
+      res.render("favourites", templateVars);
     })
     .catch( (err) => {
       console.error(err);

@@ -20,6 +20,18 @@ module.exports = (DataHelpers) => {
         res.render("../views/create-map");
         return;
     })
+    //hard coded user id
+    router.post("/", (req, res) =>{
+        DataHelpers.addMap(req.body.map_name, req.body.description, 2,(err, results, mapid) =>{
+            if(err){
+                console.log(err);
+                console.log("error adding map to database");
+                res.status(503).send();
+                return;
+            }
+            res.redirect("/maps/"+mapid);
+        });
+    })
 
     //--------------------------SHOW Specific Map------------------------------------
 
@@ -30,25 +42,21 @@ module.exports = (DataHelpers) => {
                 res.status(500).send()
                 return;
             }
+            console.log(results);
             res.render("view.ejs",{
                 template: results[0]
             })
         });
-
     });
-
+    //--------------------------EDIT Page for Specific Map--------------------------------
+    router.get("/:mapid/edit", (req, res) =>{
+    });
     //--------------------------EDIT Specific Map------------------------------------
     router.put("/:mapid", (req, res) => {
-
-
-
     });
 
     //--------------------------DELETE Specific Map------------------------------------
     router.delete("/:mapid", (req, res) => {
-
-
-
     });
 
     //--------------------------LIST Points from Specific Map------------------------------------
@@ -64,31 +72,20 @@ module.exports = (DataHelpers) => {
     });
 
     //--------------------------LIST Points for Specific User------------------------------------
+    //questionable
     router.get("/points", (req, res) => {
-
-
-
     });
 
-    //--------------------------LIST Points for Specific User------------------------------------
+    //--------------------------LIST Points for Specific Map------------------------------------
     router.post("/:mapid/points", (req, res) => {
-
-
-
     });
 
     //--------------------------EDIT Specific Point------------------------------------
     router.put("/points/:pointid", (req, res) => {
-
-
-
     });
 
     //--------------------------DELETE Specific Point------------------------------------
     router.delete("/points/:pointid", (req, res) => {
-
-
-
     });
 
     return router;
