@@ -15,7 +15,6 @@ module.exports = (DataHelpers) => {
                 res.status(500).send()
                 return;
             }
-            console.log("Im inside getAll Maps");
             console.log(results);
             res.render("showmaplist.ejs",{
                 results: results
