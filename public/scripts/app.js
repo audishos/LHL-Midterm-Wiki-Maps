@@ -1,13 +1,13 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/users"
+//   }).done((users) => {
+//     for(user of users) {
+//       $("<div>").text(user.name).appendTo($("body"));
+//     }
+//   });;
+// });
 
 //Sample data
 var data = [
@@ -26,7 +26,7 @@ function createMapWithPoints(data) {
     });
   });
   
-  console.log("Running the createMapwithPoints fn now!");
+  console.log("Arr of arr is:",markers);
   var myOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
@@ -55,18 +55,23 @@ function createMapWithPoints(data) {
 
 //AJAX call to obtain the points to plot on the map
 function getPointsForMap() {
+
+  var pointsHolder = {};
   $.ajax({
-    url: "/maps/:mapid/points",
+    url: "/maps/1/points",
     method: "GET",
     dataType: 'JSON',
     success: function (data){
+      pointsHolder = data;
+      console.log("This data being passed into create maps",data);
       createMapWithPoints(data);
-      console.log(data);
     },
     error: function(){
-      console.log("Something has gone wrong!");
+      console.log("Something has gone wrong with getting the data!");
     }
   });
+
+
 }
 
 
