@@ -1,19 +1,11 @@
 <html lang="en">
   <head>
     <title>MAP ATTACK</title>
-
-    <!-- CSS/SASS/BOOTSTRAP STYLESHEETS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="/../styles/layout.css">
-
-    <!-- External CDNs -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <% include partials/_head %>
   </head>
   <body>
+    <% include partials/_nav %>
 
-    <header>
-      <% include partials/_nav %>
-    </header>
     <div id="main-content" class="container">
 
       <div class="map-description">
@@ -25,10 +17,8 @@
       </div>
 
       <div class="jumbotron content-map">
-          <div id="map-container"class = "container content-iframe" style="height: 500px; width: 500px;">
-
-              <!-- This div will hold the dynamically rendered map.  -->
-
+          <div id="map-container"class = "container content-iframe" style="height: 500px; width: 690px;">
+              <!-- This div holds the dynamically rendered map.-->
           </div>
       </div>
 
@@ -46,9 +36,3 @@
 </html>
 
 
-`<div style="color:blue;">
-  <p>Name:</p></br>
-  <p>Image:</p></br>
-  <p>Description: </p>
-</div>
-`

@@ -36,9 +36,9 @@ function createMapWithPoints(data) {
       });
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            var contentString = `<div style="color:blue;">
-            <p>Name:${markers [i][7]}</p></br>
-            <p>Image:<img src = "${markers[i][3]}" style="width:50px;height:60px;"></p></br>
+            var contentString = `<div style="color:black;">
+            <p>Name: ${markers [i][7]}</p></br>
+            <p>Image: <img src = "${markers[i][3]}" style="width:80px;height:80px;"></p></br>
             <p>Description: ${markers[i][1]}</p>
           </div>`;
               infowindow.setContent(contentString);
