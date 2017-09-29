@@ -13,7 +13,7 @@
         <p class="map-name"> Name of the Map: <%= template.title %> </p>
         <p class="map-description"> Description: <%= template.description %> </p>
         <p class = "hearts-holder text-center">
-          <span><i class="fa fa-heart" aria-hidden="true"></i></span>
+          <a href=""><i class="fa fa-heart" aria-hidden="true"></i></a>
           <span>###</span>
         </p>
 
@@ -37,7 +37,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfyL3GmxEPKHIVTMAvnz84eC_8I7gRHF8">
     </script>
     <script src="/scripts/app.js" ></script>
-  
+    
+    <% include partials/_foot %>
 
 
   </body>

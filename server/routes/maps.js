@@ -35,17 +35,17 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW Specific Map------------------------------------
 
-    router.get("/:mapid/view", (req, res) => {
+    // router.get("/:mapid/view", (req, res) => {
 
-        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-            if(error){
-                res.status(500).send()
-                return;
-            }
-            res.send(results)
-        });
-    });
-    //--------------------------SHOW Specific Map------------------------------------
+    //     DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+    //         if(error){
+    //             res.status(500).send()
+    //             return;
+    //         }
+    //         res.send(results)
+    //     });
+    // });
+    // //--------------------------SHOW Specific Map------------------------------------
     router.get("/:mapid/view", (req, res) => {
         DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
             console.log(error);
