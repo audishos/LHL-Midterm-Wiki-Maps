@@ -43,13 +43,23 @@ module.exports = function makeDataHelpers(knex){
 
       const promise = new Promise( (resolve, reject) => {
         if (userId > 0) {
-          knex('maps')
-          .join('favourites', 'maps.id', 'favourites.map_id')
-          .join('users', 'favourites.user_id', 'users.id')
-          .select('maps.*')
-          .where('users.id', userId)
+          // knex('maps')
+          // .join('favourites', 'maps.id', 'favourites.map_id')
+          // .join('users', 'favourites.user_id', 'users.id')
+          // .select('maps.*')
+          // .where('users.id', userId)
+          knex.raw(`
+            select maps.*,
+              (select count(*) from favourites
+              where map_id = maps.id)
+              as fav_count
+            from maps
+            join favourites on maps.id = favourites.map_id
+            join users on favourites.user_id = users.id
+            where users.id = ${userId}
+          `)
           .then( (res) => {
-            resolve(res);
+            resolve(res.rows);
           })
           .catch( (err) => {
             reject(err);
@@ -103,6 +113,44 @@ module.exports = function makeDataHelpers(knex){
       });
 
       return promise;
+
+    },
+
+    getFavouriteCount: (mapId) => {
+
+      return new Promise( (resolve, reject) => {
+        if (mapId > 0) {
+          knex('favourites').count()
+          .where('map_id', mapId)
+          .then( (res) => {
+            resolve(res);
+          })
+          .catch( (err) => {
+            reject(err);
+          })
+        } else {
+          reject(`mapId: ${mapId} must be > 0`);
+        }
+      });
+
+    },
+
+    getFavouriteCounts: (mapIds) => {
+
+      return new Promise( (resolve, reject) => {
+        if (mapId.length > 0) {
+          knex('favourites').count('*')
+          .whereIn('map_id', mapIds)
+          .then( (res) => {
+            resolve(res);
+          })
+          .catch( (err) => {
+            reject(err);
+          })
+        } else {
+          reject(`mapIds: ${mapIds} must contain at least 1 numeric value`);
+        }
+      });
 
     },
 

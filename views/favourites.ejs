@@ -14,7 +14,7 @@
   </head>
   <body>
       <% include ./partials/_nav %>
-    <div class="container">
+    <div id="fav-container" class="container">
       <div class="row">
         <div class="col-sm-2">
         </div>
@@ -22,11 +22,24 @@
           <h1>Favourites</h1>
           <ul class="list-group">
             <% for (fav of favourites) { %>
-            <a href="/maps/<%= fav.id %>" class="list-group-item list-group-item-action">
-            <%= fav.title %>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <span class="badge badge-default badge-pill">14</span>
-            </a>
+            <div class="conatiner">
+              <div class="row">
+                <a href="/maps/<%= fav.id %>" class="list-group-item list-group-item-action">
+                  <div class="col-sm-9">
+                    <%= fav.title %>
+                  </div>
+                  <div class="col-sm-1 fav-icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-sm-1 fav-count">
+                    <span class="badge badge-default badge-pill"><%= fav.fav_count %></span>
+                  </div>
+                  <div class="col-sm-1 fav-remove">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
             <% } %>
           </ul>
         </div>
