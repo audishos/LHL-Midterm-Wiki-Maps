@@ -2,21 +2,39 @@
 <html>
 <head>
   <% include ./partials/_head %>
+  <script src="/scripts/create-map.js" ></script>
 </head>
 <body>
   <% include ./partials/_nav %>
-  <h1>Create a new map</h1>
-   <form method="POST" action="/maps">
-    <label for="map_name">Name</label><br>
-    <input id="map_name" name="map_name"><br>
-    <label for="description">description</label><br>
-    <input id="description" name="description"><br>
-    <input type="submit">
-  </form>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/scripts/create-map.js" ></script>
-  </script>
+
+  <div id="new-map-container" class="container">
+    <div class="row">
+      <div class="col-sm-2">
+      </div>
+      <div class="col-sm-8">
+      <h1>Create a new map</h1>
+        <form method="POST" action="/maps">
+          <div class="formgroup">
+            <label for="map_name">Name</label>
+            <input id="map_name" type="text" class="form-control" name="map_name">
+          </div>
+          <div class="formgroup">
+            <label for="description">Description</label>
+            <textarea id="description" rows="10" class="form-control" name="description"></textarea>
+          </div>
+          <div class="formgroup">
+            <button type="submit" class="btn btn-primary">
+            Next
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-2">
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
