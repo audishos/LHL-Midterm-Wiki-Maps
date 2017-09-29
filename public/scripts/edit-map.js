@@ -1,6 +1,7 @@
 var mapId = 2;
 var map;
 var arrOfMarkers = [];
+var markersDeleted = [];
 function initMap(){
   // renderMap(mapId)
   map = new google.maps.Map(document.getElementById('map-container'), {
@@ -23,7 +24,7 @@ function addMarker(point, bounds){
   });
   marker.pointId = point.id;
   arrOfMarkers.push(marker);
-  var contentString = "<div class='point " + point.id + "' data-point-id='" + point.id + "'><h1>" + point.title + "</h1><br><p>" + point.description + "</p><br><img src=" + point.image + "></div>"
+  var contentString = "<div class='marker-content point " + point.id + "' data-point-id='" + point.id + "'><div class=''><h1>" + point.title + "</h1><p class='point-description'>" + point.description + "</p><br><img class='point-image' src=" + point.image + "></div></div>"
   var infowindow = new google.maps.InfoWindow({
     content: contentString
   })
@@ -32,12 +33,15 @@ function addMarker(point, bounds){
     infowindow.open(map, marker);
     addMarkerListener();
   });
+
   marker.addListener('dblclick', function(event){
     // debugger;
-    var pointId = $(event.target).data("point-id");
+    var pointId = marker.pointId;
+    markersDeleted.push(pointId);
     debugger;
     marker.setMap(null);
     $("."+pointId).remove();
+
   });
 }
 
@@ -86,6 +90,7 @@ function renderPoints(){
     }
     map.fitBounds(bounds);
     addMarkerListener();
+    newMarkerListener();
   })
 }
 
@@ -101,7 +106,35 @@ function addMarkerListener(){
     $("."+pointId).removeClass("highlighted");
   });
 }
+
+
+function newMarkerListener(){
+  google.maps.event.addListener(map, 'click', function(event){
+    var point = {
+      lat:event.latLng.lat(),
+      lng:event.latLng.lng()
+    }
+    addMarker(point);
+  })
+}
+
+function deleteMarkers(){
+  $.ajax({
+    url:"/maps/" + mapId + "/points",
+    method:"DELETE",
+    success: function(){
+      arrOfMarkers: arrOfMarkers
+    },
+    error: function(error){
+      console.log("error");
+    }
+  })
+}
+
 $(document).ready(function(){
   initMap();
+  $(".save-button").on('click', function(){
+    deleteMarkers();
+  })
 
 });

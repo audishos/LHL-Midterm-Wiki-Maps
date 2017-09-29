@@ -106,8 +106,16 @@ module.exports = (DataHelpers) => {
     router.put("/points/:pointid", (req, res) => {
     });
 
-    //--------------------------DELETE Specific Point------------------------------------
-    router.delete("/points/:pointid", (req, res) => {
+    //--------------------------DELETE Point for map------------------------------------
+    router.delete("/:mapid/points", (req, res) => {
+        DataHelpers.delete(req.params.arrOfPoints, (error, results)=>{
+            if(error){
+                console.log("points don't exist or unauthorized")
+                res.status(401).send();
+                return;
+            }
+            res.status(200).send();
+        })
     });
 
     router.post("/:mapid/favourites", (req, res) => {
