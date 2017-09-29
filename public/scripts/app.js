@@ -9,7 +9,8 @@ $(() => {
   });;
 });
 
-var markers = [
+//Sample data
+var data = [
   ['Location A', -33.890542, 151.274856],
   ['Location B', -33.923036, 151.259052],
   ['Location C', -70.028249, 151.157507],
@@ -18,7 +19,7 @@ var markers = [
   ];
 
 function createMapWithPoints(data) {
-  //Converting too array of arrays
+  //Converting to array of arrays
   var markers = data.map(function(obj) {
     return Object.keys(obj).sort().map(function(key) { 
       return obj[key];
@@ -63,7 +64,7 @@ function getPointsForMap() {
       console.log(data);
     },
     error: function(){
-      console.log("Logout Error");
+      console.log("Something has gone wrong!");
     }
   });
 }
@@ -71,7 +72,7 @@ function getPointsForMap() {
 
 //Creating an AJAX Request to maps/:mapid/points
 $(document).ready(function () {
-
+  console.log("document is ready")
   getPointsForMap();
 
 
