@@ -9,17 +9,8 @@
 //   });;
 // });
 
-//Sample data
-var data = [
-  ['Location A', -33.890542, 151.274856],
-  ['Location B', -33.923036, 151.259052],
-  ['Location C', -70.028249, 151.157507],
-  ['Location D', -33.80010128657071, 151.28747820854187],
-  ['Location E', -45.950198, 151.259302]
-  ];
-
 function createMapWithPoints(data) {
-  //Converting to array of arrays
+  //Converting to array of arrays - Warning: Array is inverted
   var markers = data.map(function(obj) {
     return Object.keys(obj).sort().map(function(key) { 
       return obj[key];
@@ -45,7 +36,12 @@ function createMapWithPoints(data) {
       });
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-              infowindow.setContent(markers[i][7]);
+            var contentString = `<div style="color:blue;">
+            <p>Name:${markers [i][7]}</p></br>
+            <p>Image:<img src = "${markers[i][3]}" style="width:50px;height:60px;"></p></br>
+            <p>Description: ${markers[i][1]}</p>
+          </div>`;
+              infowindow.setContent(contentString);
               infowindow.open(map, marker);
           }
       })(marker, i));
