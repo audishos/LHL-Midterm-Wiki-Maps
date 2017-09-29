@@ -9,9 +9,17 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-        console.log("ayyyy");
-        DataHelpers.getMaps((results)=>{
-            res.send(results);
+        DataHelpers.getAllMaps((error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            console.log("Im inside getAll Maps");
+            console.log(results);
+            res.render("showmaplist.ejs",{
+                results: results
+            })
         });
     });
 

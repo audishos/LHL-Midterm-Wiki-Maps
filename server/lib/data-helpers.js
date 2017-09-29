@@ -185,6 +185,18 @@ module.exports = function makeDataHelpers(knex){
         callback(e, null);
       })
     },
+
+    //Function to obtain ALL maps
+    getAllMaps: (callback)=>{
+      knex('maps').select()
+      .then((results)=> {
+        callback(null, results);
+      })
+      .catch((e) =>{
+        callback(e, null);
+      })
+    },
+
     addMap: (map_name, description, userId, callback) =>{
       console.log(map_name);
       console.log(description);
