@@ -79,13 +79,13 @@ module.exports = (DataHelpers) => {
     router.get("/:mapid/edit", (req, res) =>{
         DataHelpers.getMapObject(req.params.mapid)
         .then(response => {
-          let templateVars = {maps:results[0]}
+          let templateVars = { maps: response[0] }
           res.render("edit-map.ejs",{
               templateVars: templateVars
           });
         })
         .catch( error => {
-          res.status(500).send()
+          res.status(500).send(error)
           return;
         });
     });
