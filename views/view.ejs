@@ -9,21 +9,24 @@
     <div id="main-content" class="container">
 
       <div class="map-description">
-
-        <p class="map-name"> Name of the Map: <%= template.title %> </p>
-        <p class="map-desc"> Description: <%= template.description %> </p>
+        <dl class="dl-horizontal row">
+            <dt class="col-sm-3">Map Name</dt>
+            <dd class="col-sm-9"><%= template.title %></dd>
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9"><%= template.description %></dd>       
+        </dl>
         <p class = "hearts-holder text-center">
-          <a href=""><i class="fa fa-heart" aria-hidden="true"></i></a>
-          <span>###</span>
+            <a href=""><i class="fa fa-heart" aria-hidden="true"></i></a>
+            <span>###</span>
+            <a href="/maps"><button>Back to Maps</button></a>
         </p>
-
-        
       </div>
+
 
       <div class="jumbotron content-map">
           <div id="map-container"class = "container content-iframe" style="height: 500px; width: 915px;">
               <!-- This div holds the dynamically rendered map.-->
-          </div> 
+          </div>
       </div>
 
 
