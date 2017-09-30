@@ -13,7 +13,7 @@ function deleteFavourite(deleteContainer) {
 
 }
 
-$( () => {
+$( function() {
   $("#fav-container .fa-trash").on("click", function(ev) {
 
     ev.preventDefault();

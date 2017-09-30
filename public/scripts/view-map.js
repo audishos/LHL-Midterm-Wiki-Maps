@@ -1,14 +1,3 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 function createMapWithPoints(data) {
   //Converting to array of arrays - Warning: Array is inverted
   var markers = data.map(function(obj) {
@@ -49,8 +38,6 @@ function createMapWithPoints(data) {
   map.fitBounds(bounds);
 }
 
-
-
 //AJAX call to obtain the points to plot on the map
 function getPointsForMap() {
 
@@ -71,25 +58,56 @@ function getPointsForMap() {
     }
   });
 
+
 }
 
-//Function to append map info to list
-function renderMapList(MapData){
-  $("#list-of-maps").html("");
-  for(var i = 0; i < Mapdata.length; i++){
-      $("#list-of-maps").append(`<p>
-                                  <span>Name: ${MapData[i].title}</span>
-                                  <span>Description: ${MapData[i].description}</span>
-                                </p>`);
-  }
+function deleteFavourite(star, mapId) {
+
+  $.ajax({
+    url: "/maps/" + mapId + "/favourites",
+    type: "DELETE",
+    success: function(result) {
+      star.removeClass("fa-star");
+      star.addClass("fa-star-o");
+    },
+    error: function(error) {
+      console.error(error);
+    }
+  });
 }
 
+function addFavourite(star, mapId) {
 
+  $.ajax({
+    url: "/maps/" + mapId + "/favourites",
+    type: "POST",
+    success: function(result) {
+      star.removeClass("fa-star-o");
+      star.addClass("fa-star");
+    },
+    error: function(error) {
+      console.error(error);
+    }
+  });
+}
 
 
 //Creating an AJAX Request to maps/:mapid/points
-$(document).ready(function () {
+$( function () {
   console.log("document is ready")
   getPointsForMap();
+
+  $("#map-details-container i").on("click", function(ev) {
+
+    var star = $(ev.target);
+    var mapId = star.closest("#map-details-container").data("map-id");
+
+    if (star.hasClass("fa-star-o")) {
+      addFavourite(star, mapId);
+    } else {
+      deleteFavourite(star, mapId);
+    }
+
+  });
 
 });

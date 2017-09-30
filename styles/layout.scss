@@ -1,3 +1,5 @@
+//@import 'thepalette';
+
 body {
   background-color: #EEE;
   font-family: 'Raleway', sans-serif;
@@ -7,6 +9,21 @@ body {
   }
 }
 
+.jumbotron {
+  padding: 0px;
+  border-radius:0;
+  background-color: #EEE;
+}
+
+footer {
+  background-color:#292b2c;
+  color:white;
+  height: 60px;
+}
+
 @import 'profile';
+@import 'create-map';
+@import 'view-map';
 @import 'listpoints';
-@import 'profile';
+@import 'viewpage';
+//@import 'landingpage';

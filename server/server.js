@@ -60,7 +60,7 @@ app.use("/maps", mapsRoutes);
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("createpoints");
+  res.render("landingpage");
 });
 
 app.listen(PORT, () => {

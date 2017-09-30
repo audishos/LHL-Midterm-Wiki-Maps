@@ -1,43 +1,43 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <title>MAP ATTACK</title>
     <% include partials/_head %>
   </head>
   <body>
     <% include partials/_nav %>
 
-    <div id="main-content" class="container">
-
-      <div class="map-description">
-
-        <p class="map-name"> Name of the Map: <%= template.title %> </p>
-        <p class="map-description"> Description: <%= template.description %> </p>
-        <p class = "hearts-holder text-center">
-          <span><i class="fa fa-heart" aria-hidden="true"></i></span>
-          <span>###</span>
-        </p>
-
-        
+    <div id="map-details-container" class="container-fluid" data-map-id="<%= template.id %>">
+      <div class="row">
+        <div class="col-md-10 offset-md-1" align="center">
+          <h1>
+            <%= template.title %>
+            <% let favClass = "fa-star-o";
+               for (key in favourites) {
+                 if (template.id === favourites[key].id) {
+                   favClass = "fa-star";
+                 }
+               } %>
+            <i class="fa <%= favClass %>" aria-hidden="true"></i>
+          </h1>
+        </div>
       </div>
-
-      <div class="jumbotron content-map">
-          <div id="map-container"class = "container content-iframe" style="height: 500px; width: 690px;">
+      <div class="row">
+        <div id="map-container" class="container content-iframe col-md-12" style="height: 500px; width: 690px;">
               <!-- This div holds the dynamically rendered map.-->
-          </div>
-          
+        </div>
       </div>
-
-
-    </div><!-- End of #main-content -->
-    
-
+      <div class="row">
+        <div class="col-md-10 offset-md-1" align="justify">
+        <h4><%= template.description %></h4>
+        </div>
+      </div>
+    </div>
 
     <!-- API Links to load the maps -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfyL3GmxEPKHIVTMAvnz84eC_8I7gRHF8">
-    </script>
-    <script src="/scripts/app.js" ></script>
-  
+    <script src="/scripts/view-map.js" ></script>
+
+    <% include partials/_foot %>
 
 
   </body>

@@ -9,9 +9,16 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-        console.log("ayyyy");
-        DataHelpers.getMaps((results)=>{
-            res.send(results);
+        DataHelpers.getAllMaps((error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            console.log(results);
+            res.render("showmaplist.ejs",{
+                results: results
+            })
         });
     });
 
@@ -35,43 +42,58 @@ module.exports = (DataHelpers) => {
     })
     //----------------------------Get info on specifc map-------------------
     router.get("/:mapid", (req, res) => {
-        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-            console.log(error);
-            if(error){
-                res.status(500).send()
-                return;
-            }
-            res.send(results)
+        DataHelpers.getMapObject(req.params.mapid)
+        .then( result => {
+          res.send(results)
+        })
+        .catch( error => {
+          res.status(500).send()
+          return;
+
         });
     });
     //--------------------------SHOW Specific Map------------------------------------
     router.get("/:mapid/view", (req, res) => {
-        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-            console.log(error);
-            if(error){
-                res.status(500).send()
-                return;
-            }
-            console.log(results);
-            res.render("view.ejs",{
-                template: results[0]
-            })
-        });
+
+      let templateVars = {};
+      let favourited = false;
+
+      Promise.all([
+        DataHelpers.getMapObject(req.params.mapid)
+        .then( response => {
+          templateVars.template = response[0];
+        })
+        .catch( error => {
+          res.status(500).send()
+          return;
+        }),
+
+        DataHelpers.getUserFavourites(req.session.user_id)
+        .then( response => {
+          templateVars.favourites = response;
+        })
+        .catch( error => {
+          res.status(500).send(error);
+        })
+
+      ])
+      .then( response => {
+        res.render("view", templateVars);
+      });
+
     });
     //--------------------------EDIT Page for Specific Map--------------------------------
     router.get("/:mapid/edit", (req, res) =>{
-        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-            console.log(error);
-            if(error){
-                res.status(500).send()
-                return;
-            }
-            if(results){
-                let templateVars = {maps:results[0]}
-                res.render("edit-map.ejs",{
-                    templateVars: templateVars
-                })
-            }
+        DataHelpers.getMapObject(req.params.mapid)
+        .then(response => {
+          let templateVars = { maps: response[0] }
+          res.render("edit-map.ejs",{
+              templateVars: templateVars
+          });
+        })
+        .catch( error => {
+          res.status(500).send(error)
+          return;
         });
     });
     //--------------------------EDIT Specific Map------------------------------------
