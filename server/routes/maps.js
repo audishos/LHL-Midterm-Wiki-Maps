@@ -121,8 +121,17 @@ module.exports = (DataHelpers) => {
     router.get("/points", (req, res) => {
     });
 
-    //--------------------------LIST Points for Specific Map------------------------------------
+    //--------------------------ADD Point for Specific Map------------------------------------
     router.post("/:mapid/points", (req, res) => {
+      console.log(req.body.point);
+      DataHelpers.savePoint(req.body.point, (error)=>{
+        if(error){
+          res.status(500).send();
+          return;
+        }
+        res.status(200).send();
+        return;
+      });
     });
 
     //--------------------------EDIT Specific Point------------------------------------

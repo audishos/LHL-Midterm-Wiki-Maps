@@ -210,16 +210,18 @@ function deleteMarkersFromDatabase(point){
 }
 
 //-----------------------------new marker helper functions
-function saveNewMarkerToDatabase(){
+function saveNewMarkerToDatabase(point){
   $.ajax({
-    url:"/maps/" + mapId +"/points/" + points,
+    url:"/maps/" + mapId +"/points",
     method:"POST",
     data:{
       point:point
     },
     success: function(){
+      console.log("successfully saved marker")
     },
     error: function(error){
+      console.log("could not save new marker to database ", error);
     }
   })
 }
