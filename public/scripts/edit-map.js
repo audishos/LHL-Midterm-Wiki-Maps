@@ -1,13 +1,13 @@
 var mapId = 2;
 var map;
-var arrOfMarkers = [];
+var newMarkers = [];
 var markersDeleted = [];
 function initMap(){
   // renderMap(mapId)
   map = new google.maps.Map(document.getElementById('map-container'), {
     zoom: 8,
     //should be a calculated center using point position from db
-    center: {lat: -33.872, lng: 151.252},
+    center: {lat: 43.6532, lng: -79.3832},
   });
 
   google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -22,9 +22,37 @@ function addMarker(point, bounds){
     position:pos,
     map:map
   });
-  marker.pointId = point.id;
-  arrOfMarkers.push(marker);
-  var contentString = "<div class='marker-content point " + point.id + "' data-point-id='" + point.id + "'><div class=''><h1>" + point.title + "</h1><p class='point-description'>" + point.description + "</p><br><img class='point-image' src=" + point.image + "></div></div>"
+  if(!point.id){
+    marker.pointId = "new1";
+    contentString = '\
+    <h1>Fill out the Form and press submit to create POI!!</h1>\
+    <form method="POST" action="./mapsid/edit">\
+    <label for="mapname">Name</label><br>\
+    <input id="map_name" name="name"><br>\
+    <label for="description">description</label><br>\
+    <input id="descipriton" name="descipriton"><br>\
+    <label for="map_pic_url">url</label><br>\
+    <input id="map_pic_url" name="map_pic_url"><br>\
+    <input type="submit">\
+    </form>';
+  } else {
+    marker.pointId = point.id;
+    pointId = point.id ? point.id : 0;
+    pointTitle = point.title ? point.title : "AAAY";
+    pointDescription = point.description ? point.description : "";
+    pointImage = point.image ? point.image : "";
+
+    newMarkers.push(point);
+    var contentString = "\
+    <div class='marker-content point " + pointId + "' data-point-id='" + pointId +"'>\
+      <div class=''>\
+        <h1>" + pointTitle + "</h1>\
+        <p class='point-description'>" + pointDescription + "</p><br>\
+        <img class='point-image' src=" + pointImage + ">\
+      </div>\
+    </div>"
+    // console.log(contentString);
+  }
   var infowindow = new google.maps.InfoWindow({
     content: contentString
   })
@@ -35,27 +63,12 @@ function addMarker(point, bounds){
   });
 
   marker.addListener('dblclick', function(event){
-    // debugger;
     var pointId = marker.pointId;
     markersDeleted.push(pointId);
-    debugger;
     marker.setMap(null);
     $("."+pointId).remove();
 
   });
-}
-
-function getMapInfo(callback){
-  $.ajax({
-    url:"/maps/"+mapId,
-    method:"GET",
-    success: function(data){
-      console.log(data);
-    },
-    error: function(err){
-      console.log(err);
-    }
-  })
 }
 
 function getPointsOnMap(callback){
@@ -91,17 +104,16 @@ function renderPoints(){
     map.fitBounds(bounds);
     addMarkerListener();
     newMarkerListener();
+    newMarkers = [];
   })
 }
 
 function addMarkerListener(){
   $(".point").on('mouseover', function(event){
-    // debugger;
     var pointId = $(event.target).data("point-id");
     $("."+pointId).addClass("highlighted");
   });
   $(".point").on('mouseout', function(event){
-    // debugger;
     var pointId = $(event.target).data("point-id");
     $("."+pointId).removeClass("highlighted");
   });
@@ -111,30 +123,39 @@ function addMarkerListener(){
 function newMarkerListener(){
   google.maps.event.addListener(map, 'click', function(event){
     var point = {
-      lat:event.latLng.lat(),
-      lng:event.latLng.lng()
+      latitude:event.latLng.lat(),
+      longitude:event.latLng.lng()
     }
     addMarker(point);
   })
 }
 
-function deleteMarkers(){
+function deleteMarkers(point){
   $.ajax({
-    url:"/maps/" + mapId + "/points",
+    url:"/maps/" + mapId + "/points/"+point,
     method:"DELETE",
+    data:{
+      point: point
+    },
     success: function(){
-      arrOfMarkers: arrOfMarkers
+      console.log("aaasas")
     },
     error: function(error){
       console.log("error");
     }
   })
 }
+function updateDatabase(){
+  for(var point = 0; point < markersDeleted.length; point++){
+    deleteMarkers(markersDeleted[point])
+  }
+}
 
 $(document).ready(function(){
+  mapId = $("#mapId").data("mapid");
   initMap();
   $(".save-button").on('click', function(){
-    deleteMarkers();
+    updateDatabase();
   })
 
 });

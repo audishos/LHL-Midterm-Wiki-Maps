@@ -56,14 +56,14 @@ module.exports = function makeDataHelpers(knex){
         if (userId > 0) {
           knex.raw(`
             select maps.*,
-              (select count(*) from favourites
-              where map_id = maps.id)
-              as fav_count
+            (select count(*) from favourites
+            where map_id = maps.id)
+            as fav_count
             from maps
             join favourites on maps.id = favourites.map_id
             join users on favourites.user_id = users.id
             where users.id = ${userId}
-          `)
+            `)
           .then( (res) => {
             resolve(res.rows);
           })
@@ -148,13 +148,13 @@ module.exports = function makeDataHelpers(knex){
           knex.raw(`
             select DISTINCT(maps.*),
             (select count(*) from favourites
-               where map_id = maps.id)
-               as fav_count
+            where map_id = maps.id)
+            as fav_count
             from maps
             join points on maps.id = points.map_id
             join users on points.user_id = users.id
             where users.id = ${userId}
-          `)
+            `)
           .then( (res) => {
             resolve(res.rows);
           })
@@ -220,8 +220,16 @@ module.exports = function makeDataHelpers(knex){
           reject(`userId: ${userId} must be > 0`);
         }
       });
-
+    },
+    deletePoints: (point, callback)=>{
+      console.log("deleteding stuff")
+      knex('points').where('id', '=', point).del()
+      .then(()=>{
+        callback(null);
+      })
+      .catch((error) => {
+        callback(error);
+      })
     }
-
   }
 }

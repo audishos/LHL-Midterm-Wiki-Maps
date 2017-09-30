@@ -12,21 +12,23 @@
 <body>
   <% include partials/_nav %>
   <br>
-  <h1 class="main-content"><%= templateVars.maps.title %></h1>
+  <h1 class="main-content" id="mapId" data-mapid=<%= templateVars.maps.id%> ><%= templateVars.maps.title %></h1>
   <div id="main-content" class="row">
     <div class="col-sm-2">
     </div>
     <div class="col-sm-2">
-    <h2>Which points to delete</h2>
-      <div id="points">
-      </div>
+      <h2>Double click to delete!</h2>
+        <div id="points">
+        </div>
+      <br>
+      <h2>Simply click somewhere on the map to add points!!</h2>
     </div>
     <div class="col-sm-6">
       <div class="jumbotron display-edit-map" id="map-container"></div>
 
     </div>
     <div class="col-sm-2">
-    <button class="save-button"><h1>SAVE CHANGES</h1></button>
+      <button class="save-button"><h1>SAVE CHANGES</h1></button>
     </div>
   </div>
 </div>

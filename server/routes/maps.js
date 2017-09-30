@@ -108,8 +108,9 @@ module.exports = (DataHelpers) => {
     });
 
     //--------------------------DELETE Point for map------------------------------------
-    router.delete("/:mapid/points", (req, res) => {
-        DataHelpers.delete(req.params.arrOfPoints, (error, results)=>{
+    router.delete("/:mapid/points/:point", (req, res) => {
+        DataHelpers.deletePoints(req.params.point, (error)=>{
+            console.log(req.params.point)
             if(error){
                 console.log("points don't exist or unauthorized")
                 res.status(401).send();
