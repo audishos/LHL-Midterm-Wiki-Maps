@@ -9,9 +9,16 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-        console.log("ayyyy");
-        DataHelpers.getMaps((results)=>{
-            res.send(results);
+        DataHelpers.getAllMaps((error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            console.log(results);
+            res.render("showmaplist.ejs",{
+                results: results
+            })
         });
     });
 
@@ -122,8 +129,17 @@ module.exports = (DataHelpers) => {
     router.put("/points/:pointid", (req, res) => {
     });
 
-    //--------------------------DELETE Specific Point------------------------------------
-    router.delete("/points/:pointid", (req, res) => {
+    //--------------------------DELETE Point for map------------------------------------
+    router.delete("/:mapid/points/:point", (req, res) => {
+        DataHelpers.deletePoints(req.params.point, (error)=>{
+            console.log(req.params.point)
+            if(error){
+                console.log("points don't exist or unauthorized")
+                res.status(401).send();
+                return;
+            }
+            res.status(200).send();
+        })
     });
 
     router.post("/:mapid/favourites", (req, res) => {

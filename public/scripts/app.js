@@ -71,8 +71,20 @@ function getPointsForMap() {
     }
   });
 
-
 }
+
+//Function to append map info to list
+function renderMapList(MapData){
+  $("#list-of-maps").html("");
+  for(var i = 0; i < Mapdata.length; i++){
+      $("#list-of-maps").append(`<p>
+                                  <span>Name: ${MapData[i].title}</span>
+                                  <span>Description: ${MapData[i].description}</span>
+                                </p>`);
+  }
+}
+
+
 
 
 //Creating an AJAX Request to maps/:mapid/points

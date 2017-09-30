@@ -1,0 +1,35 @@
+body {
+    background-color: #D4D1D1;
+}
+
+.website-intro {
+    margin: 15px;
+}
+
+
+//showmaplist.ejs
+
+.list-header {
+    margin:20px;
+}
+
+.container {
+
+    a:link {
+        color: red;
+    }
+    a:visited {
+        color: yellow;
+    }
+    a:active {
+        color: hotpink;
+    }
+    a:hover {
+        color: blue;
+    }
+
+    th {
+        font-weight: 900;
+        font-size: larger;
+    }
+}
