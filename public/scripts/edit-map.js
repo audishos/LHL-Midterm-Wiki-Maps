@@ -29,8 +29,8 @@ function addListenerToNewMarkerSubmission(marker){
       user_id: userId,
       map_id: mapId,
       title: event.target.parentElement.children[2].value,
-      image: event.target.parentElement.children[6].value,
-      description: event.target.parentElement.children[10].value,
+      image: event.target.parentElement.children[10].value,
+      description: event.target.parentElement.children[6].value,
       longitude: Number(event.target.parentElement.getAttribute("data-lng")),
       latitude: Number(event.target.parentElement.getAttribute("data-lat"))
     };
