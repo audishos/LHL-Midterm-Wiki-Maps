@@ -15,7 +15,7 @@ function deleteFavourite(deleteContainer) {
 
 $( function() {
   $("#fav-container .fa-trash").on("click", function(ev) {
-
+    // deleting a favourite via clicking the trash icon
     ev.preventDefault();
     ev.stopPropagation();
 

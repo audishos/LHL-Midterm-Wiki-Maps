@@ -21,6 +21,8 @@ module.exports = function makeDataHelpers(knex){
       });
     },
 
+    // accepts a single integer and
+    // returns the corresponging map object by ID
     getMapById: (mapId) => {
       const promise = new Promise( (resolve, reject) => {
         knex('maps').select()
@@ -36,6 +38,8 @@ module.exports = function makeDataHelpers(knex){
       return promise;
     },
 
+    // accepts an array of integers and
+    // returns the corresponding map objects by ID in an array
     getMapsByIds: (mapIds) => {
       const promise = new Promise( (resolve, reject) => {
         knex('maps').select()
@@ -50,6 +54,8 @@ module.exports = function makeDataHelpers(knex){
       return promise;
     },
 
+    // accepts a user id (int)
+    // and returns an array of map objects that they have favourited
     getUserFavourites: (userId) => {
 
       const promise = new Promise( (resolve, reject) => {
@@ -79,6 +85,8 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
+    // accepts a user id and map id (int)
+    // and adds the map to the user's favourites
     addFavourite: (userId, mapId) => {
 
       const promise = new Promise( (resolve, reject) => {
@@ -102,6 +110,8 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
+    // accepts a user id and a map id (int)
+    // and removes the map from the user's favourites
     deleteFavourite: (userId, mapId) => {
 
       const promise = new Promise( (resolve, reject) => {
@@ -122,6 +132,8 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
+    // accepts a map id (int)
+    // and returns the number of times it has been favourited
     getFavouriteCount: (mapId) => {
 
       return new Promise( (resolve, reject) => {
@@ -141,6 +153,8 @@ module.exports = function makeDataHelpers(knex){
 
     },
 
+    // accepts a user id
+    // and returns an array of map objects that they have contributed to
     getUserContributions: (userId) => {
 
       return new Promise( (resolve, reject) => {
@@ -220,6 +234,8 @@ module.exports = function makeDataHelpers(knex){
       })
     },
 
+    // accepts a user is (int)
+    // and returns the corresponding user object
     getUser: (userId) => {
 
       return new Promise( (resolve, reject) => {

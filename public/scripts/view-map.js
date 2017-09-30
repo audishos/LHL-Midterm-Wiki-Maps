@@ -98,7 +98,7 @@ $( function () {
   getPointsForMap();
 
   $("#map-details-container i").on("click", function(ev) {
-
+  // adding and removing map from current authed user's favourites
     var star = $(ev.target);
     var mapId = star.closest("#map-details-container").data("map-id");
 

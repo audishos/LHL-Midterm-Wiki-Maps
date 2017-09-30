@@ -151,6 +151,7 @@ module.exports = (DataHelpers) => {
         })
     });
 
+    // add the map via id in the route to the authed user's favourites
     router.post("/:mapid/favourites", (req, res) => {
 
       const userId = req.session.user_id;
@@ -172,6 +173,7 @@ module.exports = (DataHelpers) => {
 
     });
 
+    // delete the map via id in the route from the authed user's favourites
     router.delete("/:mapid/favourites", (req, res) => {
 
       const userId = req.session.user_id;

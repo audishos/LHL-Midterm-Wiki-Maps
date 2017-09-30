@@ -37,6 +37,7 @@ module.exports = (DataHelpers) => {
 
   });
 
+  // display the user profile page for the current authed user
   router.get("/profile", (req, res) => {
 
     const userId = req.session.user_id;
@@ -44,6 +45,8 @@ module.exports = (DataHelpers) => {
 
     if (userId) {
       Promise.all([
+
+        // get user details
         DataHelpers.getUser(userId)
         .then( (response) => {
           templateVars.user = response;
@@ -52,6 +55,7 @@ module.exports = (DataHelpers) => {
           res.status(400).send(error);
         }),
 
+        // get user favourites
         DataHelpers.getUserFavourites(userId)
         .then( (response) => {
           templateVars.favourites = response;
@@ -60,6 +64,7 @@ module.exports = (DataHelpers) => {
           res.status(400).send(error);
         }),
 
+        // get user contributions
         DataHelpers.getUserContributions(userId)
         .then( (response) => {
           templateVars.contributions = response;
