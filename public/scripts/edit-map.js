@@ -1,5 +1,6 @@
 var userId=2;
 var mapId = 2;
+var newMarkerIncrement = 1;
 var map;
 var newMarkers = [];
 var markersDeleted = [];
@@ -24,27 +25,21 @@ function initMap(){
 function addListenerToNewMarkerSubmission(marker){
   $("#new-marker-submit").on('click', function(event){
     //db reference lat and lng as full words!!!!!!!!
+    var pathToForm = event.target.parentElement.parentElement.getElementsByClassName("formgroup");
     var point = {
-      id: "new",
+      id: event.target.parentElement.parentElement.getAttribute("data-point-id"),
       user_id: userId,
       map_id: mapId,
-      title: event.target.parentElement.children[2].value,
-      image: event.target.parentElement.children[10].value,
-      description: event.target.parentElement.children[6].value,
-      longitude: Number(event.target.parentElement.getAttribute("data-lng")),
-      latitude: Number(event.target.parentElement.getAttribute("data-lat"))
+      title: pathToForm[0].children[1].value,
+      image: pathToForm[2].children[1].value,
+      description: pathToForm[1].children[1].value,
+      longitude: Number(event.target.parentElement.parentElement.getAttribute("data-lng")),
+      latitude: Number(event.target.parentElement.parentElement.getAttribute("data-lat"))
     };
     //set current to null and add real one
     //logic of addMarker should render without form
-    debugger;
     marker.setMap(null);
     addMarker(point);
-    // google.maps.event.addListener(map, 'click', function(event){
-    //   var point = {
-    //     latitude:event.latLng.lat(),
-    //     longitude:event.latLng.lng()
-    //   }
-    // })
   })
 }
 
@@ -57,39 +52,50 @@ function addMarker(point, bounds){
   });
   //--if new point, intialize with form--/
   if(!point.id){
-    marker.pointId = "new1";
+    marker.pointId = "new" + newMarkerIncrement;
+    newMarkerIncrement++;
     contentString = '\
-    <div class="new-point">\
-    <h1>Fill out the Form and press submit to create POI!!</h1>\
-    <form data-lat='  + pos.lat + ' data-lng=' + pos.lng + '>\
-    <label for="mapname">Name</label><br>\
-    <input id="map_name" name="name"><br>\
-    <label for="description">description</label><br>\
-    <input id="descipriton" name="descipriton"><br>\
-    <label for="map_pic_url">url</label><br>\
-    <input id="map_pic_url" name="map_pic_url"><br>\
-    <button id="new-marker-submit">Submit</button>\
-    </form>\
-    </div>';
+    <div class="new' + newMarkerIncrement + '">\
+      <h1>Create New Point</h1>\
+        <form data-lat='  + pos.lat + ' data-lng=' + pos.lng + ' data-point-id=' + marker.pointId + '>\
+          <div class="formgroup">\
+            <label for="point_name">Name</label>\
+            <input id="point_name" type="text" class="form-control" name="point_name">\
+          </div>\
+          <div class="formgroup">\
+            <label for="description">Description</label>\
+            <textarea id="description" rows="10" class="form-control" name="description"></textarea>\
+          </div>\
+          <div class="formgroup">\
+            <label for="map_pic_url">Picture URL</label>\
+            <input id="map_pic_url" type="text" class="form-control" name="map_pic_url">\
+          </div>\
+          <div class="formgroup">\
+            <button id="new-marker-submit" class="btn btn-primary">\
+            Next\
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>\
+            </button>\
+          </div>\
+        </form>\
+        <div>';
   } else {
     marker.pointId = point.id;
     pointId = point.id ? point.id : 0;
     pointTitle = point.title ? point.title : "AAAY";
     pointDescription = point.description ? point.description : "";
     pointImage = point.image ? point.image : "";
-
     newMarkers.push(point);
+
       //commited point get rendered fully
       var contentString = "\
       <div class='marker-content point " + pointId + "' data-point-id=" + pointId +">\
-      <div class=''>\
-      <h1>" + pointTitle + "</h1>\
-      <p class='point-description'>" + pointDescription + "</p><br>\
-      <img class='point-image' src=" + pointImage + ">\
-      </div>\
+        <div class=''>\
+          <h1>" + pointTitle + "</h1>\
+          <p class='point-description'>" + pointDescription + "</p><br>\
+          <img class='point-image' src=" + pointImage + ">\
+        </div>\
       </div>"
     }
-    console.log(contentString)
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     })
@@ -100,17 +106,21 @@ function addMarker(point, bounds){
   marker.addListener('click', function(){
     infowindow.open(map, marker);
     addMarkerListener();
-    debugger;
     addListenerToNewMarkerSubmission(marker);
   });
 
   //if double clicked delete marker
   marker.addListener('dblclick', function(event){
     var pointId = marker.pointId;
-    //keeping track of deleted markers
-    markersDeleted.push(pointId);
+    debugger;
+    if(!Number(pointId)){
+      deleteNewMarkerFromArr(pointId);
+    } else {
+      //keeping track of deleted markers
+      markersDeleted.push(pointId);
+      $("."+pointId).remove();
+    }
     marker.setMap(null);
-    $("."+pointId).remove();
 
   });
 }
@@ -121,11 +131,9 @@ function getPointsOnMap(callback){
     url:"/maps/"+mapId+"/points",
     method:"GET",
     success: function(data){
-      // console.log(data);
       callback(data);
     },
     error: function(err){
-      console.log(err);
     }
   })
 }
@@ -177,6 +185,15 @@ function newMarkerListener(){
   })
 }
 
+function deleteNewMarkerFromArr(newId){
+  var arrHold = []
+  for(var point = 0; point < newMarkers.length; point++){
+    if(newMarkers[point].id !== newId){
+      arrHold.push(newMarkers[point])
+    }
+  }
+  newMarkers = arrHold;
+}
 //delete marker from database
 function deleteMarkersFromDatabase(point){
   $.ajax({
@@ -186,10 +203,8 @@ function deleteMarkersFromDatabase(point){
       point: point
     },
     success: function(){
-      console.log("aaasas")
     },
     error: function(error){
-      console.log("error");
     }
   })
 }
@@ -203,14 +218,11 @@ function saveNewMarkerToDatabase(){
       point:point
     },
     success: function(){
-      console.log("successful post")
     },
     error: function(error){
-      console.log(error);
     }
   })
 }
-
 
 //updates current display of map into database
 function updateDatabase(){
