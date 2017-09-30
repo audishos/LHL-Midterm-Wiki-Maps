@@ -1,10 +1,7 @@
-@import 'favourites';
-@import 'viewpage';
-@import 'landingpage';
-@import 'thepalette';
+//@import 'thepalette';
 
 body {
-  background-color: $color4;
+  background-color: #EEE;
   font-family: 'Raleway', sans-serif;
 
   h1 {
@@ -15,7 +12,7 @@ body {
 .jumbotron {
   padding: 0px;
   border-radius:0;
-  background-color:$color4;
+  background-color: #EEE;
 }
 
 footer {
@@ -23,7 +20,10 @@ footer {
   color:white;
   height: 60px;
 }
+
 @import 'profile';
 @import 'create-map';
 @import 'view-map';
 @import 'listpoints';
+@import 'viewpage';
+//@import 'landingpage';
