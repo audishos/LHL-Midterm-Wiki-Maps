@@ -10,7 +10,13 @@
         <div class="col-md-10 offset-md-1" align="center">
           <h1>
             <%= template.title %>
-            <i class="fa fa-star-o" aria-hidden="true"></i>
+            <% let favClass = "fa-star-o";
+               for (key in favourites) {
+                 if (template.id === favourites[key].id) {
+                   favClass = "fa-star";
+                 }
+               } %>
+            <i class="fa <%= favClass %>" aria-hidden="true"></i>
           </h1>
         </div>
       </div>

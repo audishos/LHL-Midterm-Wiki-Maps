@@ -179,14 +179,17 @@ module.exports = function makeDataHelpers(knex){
     },
 
     //Function to obtain a Map object
-    getMapObject: (mapid, callback)=>{
-      knex('maps').where('id', mapid).select()
-      .then((results)=> {
-        callback(null, results);
-      })
-      .catch((e) =>{
-        callback(e, null);
-      })
+    getMapObject: (mapid)=>{
+      return new Promise( (resolve, reject) => {
+        knex('maps').where('id', mapid).select()
+        .then((results)=> {
+          resolve(results);
+        })
+        .catch((e) =>{
+          reject(e);
+        })
+      });
+
     },
     addMap: (map_name, description, userId, callback) =>{
       knex.insert({
