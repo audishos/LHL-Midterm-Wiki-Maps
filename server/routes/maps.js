@@ -29,30 +29,29 @@ module.exports = (DataHelpers) => {
     })
     //hard coded user id
     router.post("/", (req, res) =>{
-        DataHelpers.addMap(req.body.map_name, req.body.description, 2,(err, results, mapid) =>{
+        DataHelpers.addMap(req.body.map_name, req.body.description, req.session.user_id, (err, mapId) =>{
             if(err){
                 console.log(err);
                 console.log("error adding map to database");
                 res.status(503).send();
                 return;
+            } else {
+              res.redirect(`/maps/${mapId}/edit`);
             }
-            res.redirect("/maps/"+mapid);
         });
     })
-
+    //----------------------------Get info on specifc map-------------------
+    router.get("/:mapid", (req, res) => {
+        DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
+            console.log(error);
+            if(error){
+                res.status(500).send()
+                return;
+            }
+            res.send(results)
+        });
+    });
     //--------------------------SHOW Specific Map------------------------------------
-
-    // router.get("/:mapid/view", (req, res) => {
-
-    //     DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
-    //         if(error){
-    //             res.status(500).send()
-    //             return;
-    //         }
-    //         res.send(results)
-    //     });
-    // });
-    // //--------------------------SHOW Specific Map------------------------------------
     router.get("/:mapid/view", (req, res) => {
         DataHelpers.getMapObject(req.params.mapid, (error, results)=>{
             console.log(error);
@@ -115,8 +114,17 @@ module.exports = (DataHelpers) => {
     router.put("/points/:pointid", (req, res) => {
     });
 
-    //--------------------------DELETE Specific Point------------------------------------
-    router.delete("/points/:pointid", (req, res) => {
+    //--------------------------DELETE Point for map------------------------------------
+    router.delete("/:mapid/points/:point", (req, res) => {
+        DataHelpers.deletePoints(req.params.point, (error)=>{
+            console.log(req.params.point)
+            if(error){
+                console.log("points don't exist or unauthorized")
+                res.status(401).send();
+                return;
+            }
+            res.status(200).send();
+        })
     });
 
     router.post("/:mapid/favourites", (req, res) => {
