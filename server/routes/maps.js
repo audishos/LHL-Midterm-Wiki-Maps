@@ -9,17 +9,18 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-        DataHelpers.getAllMaps((error, results)=>{
+      DataHelpers.getMaps((error, results)=>{
             console.log(error);
             if(error){
                 res.status(500).send()
                 return;
             }
-            console.log(results);
+            // console.log(results);
             res.render("showmaplist.ejs",{
-                results: results
+                results: results.rows
             })
-        });
+      });
+
     });
 
     //--------------------------ADD A MAP------------------------------------
@@ -78,7 +79,13 @@ module.exports = (DataHelpers) => {
 
       ])
       .then( response => {
-        res.render("view", templateVars);
+        console.log("template vars:",templateVars);
+        if(templateVars.template) {
+          res.render("view", templateVars);
+        } else {
+          res.redirect("/");
+        }
+
       });
 
     });
@@ -87,21 +94,18 @@ module.exports = (DataHelpers) => {
         DataHelpers.getMapObject(req.params.mapid)
         .then(response => {
           let templateVars = { maps: response[0] }
-          res.render("edit-map.ejs",{
-              templateVars: templateVars
-          });
+          if(templateVars.maps) {
+            res.render("edit-map.ejs",{
+                templateVars: templateVars
+            });
+          } else {
+            res.redirect("/");
+          }
         })
         .catch( error => {
           res.status(500).send(error)
           return;
         });
-    });
-    //--------------------------EDIT Specific Map------------------------------------
-    router.put("/:mapid", (req, res) => {
-    });
-
-    //--------------------------DELETE Specific Map------------------------------------
-    router.delete("/:mapid", (req, res) => {
     });
 
     //--------------------------LIST Points from Specific Map------------------------------------
@@ -116,11 +120,6 @@ module.exports = (DataHelpers) => {
         });
     });
 
-    //--------------------------LIST Points for Specific User------------------------------------
-    //questionable
-    router.get("/points", (req, res) => {
-    });
-
     //--------------------------ADD Point for Specific Map------------------------------------
     router.post("/:mapid/points", (req, res) => {
       console.log(req.body.point);
@@ -132,10 +131,6 @@ module.exports = (DataHelpers) => {
         res.status(200).send();
         return;
       });
-    });
-
-    //--------------------------EDIT Specific Point------------------------------------
-    router.put("/points/:pointid", (req, res) => {
     });
 
     //--------------------------DELETE Point for map------------------------------------

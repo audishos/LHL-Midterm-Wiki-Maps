@@ -10,6 +10,7 @@
     <div id="main">
 
       <% include partials/_nav %>
+      <% include partials/_getFavourite %>
 
       <h1 class="text-center list-header">Here's a list of Maps! Get navigating!</h1>
       <div class="container">
@@ -19,7 +20,7 @@
               <div class="row">
                 <a href="/maps/<%= results[i].id %>/view" class="list-group-item list-group-item-action">
                   <div class="col-sm-9">
-                    <%= results[i].title %>
+                    <%= results[i].title + " --- (" + results[i].description.substring(0, 50) + " ...)"%>
                   </div>
                   <div class="col-sm-1 fav-icon">
                     <i class="fa fa-star" aria-hidden="true"></i>

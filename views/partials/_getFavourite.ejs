@@ -1,0 +1,6 @@
+<% function getFavoriteCount(mapId) {
+    console.log("FavoriteCounter function is being inboked");
+    return knex('favourites').count().where('map_id', mapId);
+  }
+
+%>
