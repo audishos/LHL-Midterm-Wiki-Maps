@@ -8,9 +8,9 @@ exports.seed = (knex, Promise) => {
       id: 1,
       user_id: 1,
       map_id: 1,
-      title: faker.company.companyName(),
+      title: "Thai Fantasy",
       image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
+      description: "Great Thai restaurant with excellent Green curry!",
       longitude: faker.address.longitude(),
       latitude: faker.address.latitude(),
       created_at: faker.date.past()
