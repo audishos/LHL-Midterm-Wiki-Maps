@@ -9,12 +9,7 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-      function getFavoriteCount(mapId) {
-        console.log("FavoriteCounter function is being inboked");
-        return knex('favourites').count().where('map_id', mapId);
-      }
-
-      DataHelpers.getAllMaps((error, results)=>{
+      DataHelpers.getMaps((error, results)=>{
             console.log(error);
             if(error){
                 res.status(500).send()
@@ -22,8 +17,7 @@ module.exports = (DataHelpers) => {
             }
             console.log(results);
             res.render("showmaplist.ejs",{
-                results: results,
-                getFavoriteCount: getFavoriteCount
+                results: results.rows
             })
       });
 

@@ -12,7 +12,14 @@ function getDate(){
 module.exports = function makeDataHelpers(knex){
   return {
     getMaps: (callback)=>{
-      knex('maps').select()
+      // knex('maps').select()
+      knex.raw(`
+      select maps.*,
+      (select count(*) from favourites
+      where map_id = maps.id)
+      as fav_count
+      from maps
+      `)
       .then((results) =>{
         callback(null, results);
       })
