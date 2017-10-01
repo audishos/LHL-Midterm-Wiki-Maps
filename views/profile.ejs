@@ -39,7 +39,7 @@
                 <% for (fav of favourites) { %>
                   <div class="conatiner fav-row" data-map-id="<%= fav.id %>">
                     <div class="row">
-                      <a href="/maps/<%= fav.id %>" class="list-group-item list-group-item-action">
+                      <a href="/maps/<%= fav.id %>/view" class="list-group-item list-group-item-action">
                         <div class="col-sm-9">
                           <%= fav.title %>
                         </div>
@@ -73,7 +73,7 @@
                 <% for (map of contributions) { %>
                   <div class="conatiner fav-row" data-map-id="<%= map.id %>">
                     <div class="row">
-                      <a href="/maps/<%= map.id %>" class="list-group-item list-group-item-action">
+                      <a href="/maps/<%= map.id %>/view" class="list-group-item list-group-item-action">
                         <div class="col-sm-9">
                           <%= map.title %>
                         </div>

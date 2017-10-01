@@ -5,21 +5,72 @@ html, body {
 }
 
 body {
-  background-color: #EEE;
+  background-color: $color3;
   font-family: 'Raleway', sans-serif;
 
-  h1 {
-    color: #244751;
-  }
 }
 
 #container {
   min-height: 100%;
 }
 
+#map-container {
+  padding-bottom: 50px;
+}
+
+nav {
+
+  background-color: $color1;
+
+  .navbar-brand, a {
+    color: $color5;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  #btn-create-map {
+    background-color: $cta;
+    color: $color5;
+    border-color: $color5;
+    margin-left: 1em;
+  }
+
+  #btn-create-map:hover {
+    background-color: $color2;
+    color: $color5;
+  }
+}
+
 #main {
   overflow:auto;
   padding-bottom:120px; /* this needs to be bigger than footer height*/
+}
+
+h1 {
+  color: $color5;
+  margin: 12px 0;
+}
+
+h2, h3, h4, p, label {
+  color: white;
+}
+
+.row {
+
+  p {
+    text-align: justify;
+  }
+
+}
+
+.list-group-item {
+  background-color: $color1;
+  color: white;
+}
+
+.list-group-item:hover {
+  background-color: $color5;
+  color: $color1;
 }
 
 .jumbotron {
@@ -29,8 +80,8 @@ body {
 }
 
 footer {
-  background-color:#292b2c;
-  color:white;
+  background-color: $color1;
+  color: $color5;
   height: 120px;
   position: relative;
   margin-top: -120px; /* negative value of footer height */
