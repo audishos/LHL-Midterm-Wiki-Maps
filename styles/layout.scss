@@ -14,6 +14,10 @@ body {
   min-height: 100%;
 }
 
+#map-container {
+  padding-bottom: 50px;
+}
+
 nav {
 
   background-color: $color1;
@@ -44,23 +48,19 @@ nav {
 
 h1 {
   color: $color5;
+  margin: 12px 0;
 }
 
-h2, h3, h4, p {
+h2, h3, h4, p, label {
   color: white;
 }
 
 .row {
-  padding: 1em;
-  margin: 1em;
 
-  div {
-    padding: 0 2em;
-
-    p {
-      text-align: justify;
-    }
+  p {
+    text-align: justify;
   }
+
 }
 
 .list-group-item {

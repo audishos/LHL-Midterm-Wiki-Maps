@@ -1,4 +1,8 @@
-#map-details-container {
+#map-title-container, #map-desc-container {
+
+  .row {
+    padding: 1em 0;
+  }
 
   i {
     color: #FFFF33;

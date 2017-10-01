@@ -43,7 +43,6 @@ function createMapWithPoints(data) {
       map.setCenter({lat: 43.6532, lng: -79.3832});
       map.setZoom(8)
     }
-    debugger;
     if(map.getZoom() > 18){
      map.setZoom(12);
     };
