@@ -17,12 +17,17 @@
 .point-image{
   width: 300px;
 }
+
 .save-button{
-  background-color: #5cb85c;
-  border-style: none;
+  box-sizing:content-box;
+  margin: 10px;
 }
-.save-button:hover{
-  background-color: darken(#5cb85c, 5);
-  border-style: solid;
-  border-color:black;
+
+.search-form{
+  background-color: $color4;
+  border-radius: 5px;
+  padding: 10px;
+  margin: auto 20px;
+  text-align: center;
+  box-sizing: content-box;
 }
