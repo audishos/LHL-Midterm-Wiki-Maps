@@ -11,19 +11,19 @@ exports.seed = (knex, Promise) => {
       title: "Thai Fantasy",
       image: faker.image.cats(),
       description: "Great Thai restaurant with excellent Green curry!",
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
+      longitude: -79.3848093,
+      latitude: 43.6651203,
       created_at: faker.date.past()
     }),
     knex('points').insert({
       id: 2,
       user_id: 1,
       map_id: 1,
-      title: faker.company.companyName(),
+      title: "Dominos Pizza",
       image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
+      description: "Great pizza place in Toronto.",
+      longitude: -79.3920218,
+      latitude: 43.6433776,
       created_at: faker.date.past()
     }),
     knex('points').insert({
