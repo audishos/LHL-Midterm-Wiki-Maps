@@ -229,6 +229,7 @@ function saveNewMarkerToDatabase(point){
       console.log("successfully saved marker")
     },
     error: function(error){
+      debugger;
       console.log("could not save new marker to database ", error);
     }
   })
@@ -269,7 +270,6 @@ $(document).ready(function(){
     updateDatabase();
   })
   $("#search-city").on('click', function(event){
-    debugger;
     centerMap(event.target.parentElement.children[1].value);
   })
 
