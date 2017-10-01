@@ -15,7 +15,7 @@ module.exports = (DataHelpers) => {
                 res.status(500).send()
                 return;
             }
-            console.log(results);
+            // console.log(results);
             res.render("showmaplist.ejs",{
                 results: results.rows
             })
@@ -79,7 +79,13 @@ module.exports = (DataHelpers) => {
 
       ])
       .then( response => {
-        res.render("view", templateVars);
+        console.log("template vars:",templateVars);
+        if(templateVars.template) {
+          res.render("view", templateVars);
+        } else {
+          res.redirect("/");
+        }
+
       });
 
     });
@@ -88,9 +94,13 @@ module.exports = (DataHelpers) => {
         DataHelpers.getMapObject(req.params.mapid)
         .then(response => {
           let templateVars = { maps: response[0] }
-          res.render("edit-map.ejs",{
-              templateVars: templateVars
-          });
+          if(templateVars.maps) {
+            res.render("edit-map.ejs",{
+                templateVars: templateVars
+            });
+          } else {
+            res.redirect("/");
+          }
         })
         .catch( error => {
           res.status(500).send(error)
