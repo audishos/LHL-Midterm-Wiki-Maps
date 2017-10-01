@@ -170,6 +170,7 @@ module.exports = function makeDataHelpers(knex){
             where users.id = ${userId}
             `)
           .then( (res) => {
+            console.log(res)
             resolve(res.rows);
           })
           .catch( (err) => {

@@ -5,30 +5,6 @@ const router  = express.Router();
 
 module.exports = (DataHelpers) => {
 
-//--------------------------ROOT URL------------------------------------
-  router.get("/", (req, res) => {
-    // knex("users")
-    //   .select("*")
-    //   .from("users")
-    //   .then((results) => {
-    //     res.json(results);
-    // });
-  });
-
-//--------------------------LOGIN Page------------------------------------
-  router.post("/login", (req, res) => {
-
-
-
-  });
-
-  //--------------------------REGISTER Page------------------------------------
-  router.post("/register", (req, res) => {
-
-
-
-  });
-
   //--------------------------HARDCODED LOGIN------------------------------------
   router.get("/login/:id", (req, res) => {
 

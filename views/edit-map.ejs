@@ -20,7 +20,8 @@
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
-          <h1 class="edit-map-title" id="mapId" data-mapid="<%= templateVars.maps.id%>">
+
+          <h1 class="edit-map-title" id="mapId" data-mapid=<%=templateVars.maps.id%> data-userid=<%=templateVars.maps.userid%>>
             <%= templateVars.maps.title %>
           </h1>
         </div>
@@ -45,7 +46,7 @@
           <div class="jumbotron display-edit-map" id="map-container"></div>
         </div>
       </div>
-      <button class="save-button btn btn-success"><h1>SAVE CHANGES</h1></button>
+      <button class="save-button btn btn-info"><h1>SAVE CHANGES</h1></button>
     </div>
   </div>
 
