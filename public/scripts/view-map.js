@@ -108,10 +108,10 @@ $( function () {
   console.log("document is ready")
   getPointsForMap();
 
-  $("#map-details-container i").on("click", function(ev) {
+  $("#map-title-container i").on("click", function(ev) {
   // adding and removing map from current authed user's favourites
     var star = $(ev.target);
-    var mapId = star.closest("#map-details-container").data("map-id");
+    var mapId = star.closest("#map-title-container").data("map-id");
 
     if (star.hasClass("fa-star-o")) {
       addFavourite(star, mapId);
