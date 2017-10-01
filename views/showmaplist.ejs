@@ -13,46 +13,29 @@
       <% include partials/_getFavourite %>
 
       <h1 class="text-center list-header">Here's a list of Maps! Get navigating!</h1>
-      <div class="container table-responsive table-hover table-bordered">
-        <table id = "map-table" class="table .table-hover">
-          <thead>
-            <tr>
-              <th class="text-center">Map Titles</th>
-              <th class="text-center">Description</th>
-              <th class="text-center"># of Favorites</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <% for(var i = 0; i < results.length; i++) { %>
-
-                <tr>
-                  <td>
-                    <div class="col text-center links-holder">
-                      <a href="/maps/<%= i+1 %>/view">
-                        <%= results[i].title %>
-                      </a>
-                    </div>
-                  </td>
-
-                  <td class="col-6 text-center">
-                    <a href="/maps/<%= i+1 %>/view">
-                    <%= results[i].description %>
-                    </a>
-                  </td>
-
-                  <td class="col text-center">
-                    <a href="/maps/<%= i+1 %>/view">
-                      <%= results[i].fav_count %>
-                    </a>
-                  </td>
-                </tr>
-
-              <% } %>
-
-          </tbody>
-        </table>
-      </div>
+      <div class="container">
+        <ul class="list-group">
+          <% for(var i = 0; i < results.length; i++) { %>
+            <div class="conatiner fav-row" data-map-id="<%= results[i].id %>">
+              <div class="row">
+                <a href="/maps/<%= results[i].id %>/view" class="list-group-item list-group-item-action">
+                  <div class="col-sm-9">
+                    <%= results[i].title + " --- (" + results[i].description.substring(0, 50) + " ...)"%>
+                  </div>
+                  <div class="col-sm-1 fav-icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-sm-1 fav-count">
+                    <span class="badge badge-default badge-pill"><%= results[i].fav_count %></span>
+                  </div>
+                  <div class="col-sm-1">
+                  </div>
+                </a>
+              </div>
+            </div>
+            <% } %>
+          </ul>
+        </div>
 
     </div>
   </div>
