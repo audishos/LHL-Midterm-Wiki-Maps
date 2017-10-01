@@ -48,6 +48,7 @@ function addMarker(point, bounds){
   var pos = {lat:Number(point.latitude),lng:Number(point.longitude)};
   var marker = new google.maps.Marker({
     position:pos,
+    animation: google.maps.Animation.DROP,
     map:map
   });
   //--if new point, intialize with form--/
@@ -112,7 +113,6 @@ function addMarker(point, bounds){
   //if double clicked delete marker
   marker.addListener('dblclick', function(event){
     var pointId = marker.pointId;
-    debugger;
     if(!Number(pointId)){
       deleteNewMarkerFromArr(pointId);
     } else {
@@ -147,18 +147,25 @@ function addToListOfPoints(point){
 function renderPoints(){
   getPointsOnMap(function(arrOfPoints){
     document.getElementById("points").innerHTML = "";
-    var bounds = new google.maps.LatLngBounds();
-    for(var point = 0; point < arrOfPoints.length; point++){
-      addMarker(arrOfPoints[point]);
-      addToListOfPoints(arrOfPoints[point]);
-      var lat = Number(arrOfPoints[point].latitude);
-      var lng = Number(arrOfPoints[point].longitude);
-      bounds.extend({lat,lng});
+    if( arrOfPoints.length > 0){
+      var bounds = new google.maps.LatLngBounds();
+      for(var point = 0; point < arrOfPoints.length; point++){
+        addMarker(arrOfPoints[point]);
+        addToListOfPoints(arrOfPoints[point]);
+        var lat = Number(arrOfPoints[point].latitude);
+        var lng = Number(arrOfPoints[point].longitude);
+        bounds.extend({lat,lng});
+      }
+      map.fitBounds(bounds);
+      if(map.getZoom() > 18){
+        map.setZoom(12);
+      }
     }
-    map.fitBounds(bounds);
+
     addMarkerListener();
     newMarkerListener();
     newMarkers = [];
+    // centerMap();
   })
 }
 
@@ -203,8 +210,10 @@ function deleteMarkersFromDatabase(point){
       point: point
     },
     success: function(){
+      console.log("marker deleted from database");
     },
     error: function(error){
+      console.log(error);
     }
   })
 }
@@ -234,6 +243,21 @@ function updateDatabase(){
   for(var newPoint = 0; newPoint < newMarkers.length; newPoint++){
     saveNewMarkerToDatabase(newMarkers[newPoint])
   }
+  location.href = "/maps/"+ mapId + "/view"
+}
+
+function centerMap(cityCountry){
+  $.ajax({
+    url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityCountry,
+    method: "GET",
+    success: function(data){
+      map.setCenter(data.results[0].geometry.location);
+      map.setZoom(8)
+    },
+    error: function (error){
+      console.log(error);
+    }
+  })
 }
 
 //-----------------------------when page is loaded
@@ -242,6 +266,9 @@ $(document).ready(function(){
   initMap();
   $(".save-button").on('click', function(){
     updateDatabase();
+  })
+  $("#search-city").on('click', function(event){
+    centerMap(event.target.parentElement.children[0].value);
   })
 
 });
