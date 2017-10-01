@@ -29,7 +29,7 @@ function createMapWithPoints(data) {
             var contentString = `<div style="color:black;">
             <p style = "font-size: larger;margin: 0; font-weight: bold;color: #ab5348;">${markers [i][7]}</p></br>
             <span><img src = "${markers[i][3]}" style="width:150px;height:180px;float:right;"></span></br>
-            <p style = "margin: 0;font-size: larger;font-weight: bolder;">${markers[i][1]}</p>
+            <p style = "margin: 0;font-size: larger;font-weight: bolder;color: black;">${markers[i][1]}</p>
           </div>`;
               infowindow.setContent(contentString);
               infowindow.open(map, marker);
