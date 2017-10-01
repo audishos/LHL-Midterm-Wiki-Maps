@@ -83,7 +83,7 @@ module.exports = (DataHelpers) => {
         if(templateVars.template) {
           res.render("view", templateVars);
         } else {
-          res.redirect("/");
+          res.render("redirected.ejs");
         }
 
       });
@@ -99,7 +99,7 @@ module.exports = (DataHelpers) => {
                 templateVars: templateVars
             });
           } else {
-            res.redirect("/");
+            res.render("redirected.ejs");
           }
         })
         .catch( error => {
