@@ -229,6 +229,7 @@ function saveNewMarkerToDatabase(point){
       console.log("successfully saved marker")
     },
     error: function(error){
+      debugger;
       console.log("could not save new marker to database ", error);
     }
   })
@@ -250,6 +251,7 @@ function centerMap(cityCountry){
     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityCountry,
     method: "GET",
     success: function(data){
+      debugger;
       map.setCenter(data.results[0].geometry.location);
       map.setZoom(8)
     },
@@ -262,12 +264,13 @@ function centerMap(cityCountry){
 //-----------------------------when page is loaded
 $(document).ready(function(){
   mapId = $("#mapId").data("mapid");
+  userId = $("#mapId").data("userid");
   initMap();
   $(".save-button").on('click', function(){
     updateDatabase();
   })
   $("#search-city").on('click', function(event){
-    centerMap(event.target.parentElement.children[0].value);
+    centerMap(event.target.parentElement.children[1].value);
   })
 
 });
