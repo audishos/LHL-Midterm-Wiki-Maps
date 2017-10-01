@@ -31,3 +31,24 @@
         font-size: larger;
     }
 }
+
+#map-table {
+
+    tr:hover { background: #8B8686; }
+    td a { 
+        display: block; 
+        padding: 16px;
+        text-decoration: none;
+    }
+
+}
+
+.container.table-responsive {
+    width: 1140px;
+    border: 1px solid black;
+}
+
+h1.text-center.list-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

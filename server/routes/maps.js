@@ -9,7 +9,12 @@ module.exports = (DataHelpers) => {
 
     //--------------------------SHOW ALL MAPS------------------------------------
     router.get("/", (req, res) => {
-        DataHelpers.getAllMaps((error, results)=>{
+      function getFavoriteCount(mapId) {
+        console.log("FavoriteCounter function is being inboked");
+        return knex('favourites').count().where('map_id', mapId);
+      }
+
+      DataHelpers.getAllMaps((error, results)=>{
             console.log(error);
             if(error){
                 res.status(500).send()
@@ -17,9 +22,11 @@ module.exports = (DataHelpers) => {
             }
             console.log(results);
             res.render("showmaplist.ejs",{
-                results: results
+                results: results,
+                getFavoriteCount: getFavoriteCount
             })
-        });
+      });
+
     });
 
     //--------------------------ADD A MAP------------------------------------
