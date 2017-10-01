@@ -165,7 +165,6 @@ function renderPoints(){
     addMarkerListener();
     newMarkerListener();
     newMarkers = [];
-    // centerMap();
   })
 }
 

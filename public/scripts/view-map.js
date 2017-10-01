@@ -1,3 +1,4 @@
+var map;
 function createMapWithPoints(data) {
   //Converting to array of arrays - Warning: Array is inverted
   var markers = data.map(function(obj) {
@@ -11,7 +12,7 @@ function createMapWithPoints(data) {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
   };
-  var map = new google.maps.Map(document.getElementById("map-container"),myOptions);
+  map = new google.maps.Map(document.getElementById("map-container"),myOptions);
   var infowindow = new google.maps.InfoWindow();
   var marker, i;
   var bounds = new google.maps.LatLngBounds();
@@ -36,6 +37,17 @@ function createMapWithPoints(data) {
       })(marker, i));
   }
   map.fitBounds(bounds);
+  google.maps.event.addListenerOnce(map, 'idle', function(){
+    // do something only the first time the map is loaded
+    if(markers.length <=0){
+      map.setCenter({lat: 43.6532, lng: -79.3832});
+      map.setZoom(8)
+    }
+    debugger;
+    if(map.getZoom() > 18){
+     map.setZoom(12);
+    };
+  })
 }
 
 //AJAX call to obtain the points to plot on the map
@@ -107,7 +119,6 @@ $( function () {
     } else {
       deleteFavourite(star, mapId);
     }
-
   });
 
 });
