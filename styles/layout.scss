@@ -18,7 +18,17 @@ body {
 footer {
   background-color:#292b2c;
   color:white;
-  height: 60px;
+  height: 120px;
+
+  .mb-0 {
+    font-size:medium;
+  }
+
+  .blockquote, .blockquote-footer {
+    margin:0;
+    font-size: medium;
+  }
+
 }
 
 @import 'profile';
@@ -26,4 +36,4 @@ footer {
 @import 'view-map';
 @import 'listpoints';
 @import 'viewpage';
-//@import 'landingpage';
+@import 'landingpage';

@@ -1,19 +1,17 @@
-body {
-    background-color: #D4D1D1;
-}
-
-.website-intro {
+.container > .website-intro {
     margin: 15px;
+    font-size: large;
+    font-weight: 900;
 }
 
 
 //showmaplist.ejs
 
-.list-header {
+.list-header h1 {
     margin:20px;
 }
 
-.container {
+.links-holder {
 
     a:link {
         color: red;
