@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Simple Map</title>
   <meta name="viewport" content="initial-scale=1.0">
@@ -7,11 +8,14 @@
   <style>
     /* Always set the map height explicitly to define the size of the div
     * element that contains the map. */
+
     #map {
       height: 100%;
     }
     /* Optional: Makes the sample page fill the window. */
-    html, body {
+
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
@@ -20,23 +24,23 @@
 </head>
 
 <body>
-<button id ="ajax">please</button>
-<div id="maps">
+  <button id="ajax">please</button>
+  <div id="maps">
 
-</div>
+  </div>
   <nav></nav>
-   <form method="POST" action="./maps">
+  <form method="POST" action="./maps">
     <label for="mapname">Name</label><br>
     <input id="map_name" name="name"><br>
     <label for="description">description</label><br>
-    <input id="descipriton"descipriton"><br>
-    <input type="submit">
+    <input id="descipriton" descipriton "><br>
+    <input type="submit ">
   </form>
-  <div id="map" class="map"></div>
-  <div id="test"></div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="scripts/createpoints.js" ></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVs-nA4gx8MttxUZieOa2IeI_RJEt3O_Y&callback=initMap" async defer>
+  <div id="map " class="map "></div>
+  <div id="test "></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+  <script src="scripts/createpoints.js " ></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVs-nA4gx8MttxUZieOa2IeI_RJEt3O_Y&callback=initMap " async defer>
   </script>
 </body>
 

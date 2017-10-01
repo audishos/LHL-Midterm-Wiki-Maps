@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include partials/_head %>
-  </head>
-  <body>
-    <% include partials/_nav %>
 
-    <div id="map-details-container" class="container-fluid" data-map-id="<%= template.id %>">
-      <div class="row">
-        <div class="col-md-10 offset-md-1" align="center">
-          <h1>
-            <%= template.title %>
-            <% let favClass = "fa-star-o";
-               for (key in favourites) {
-                 if (template.id === favourites[key].id) {
-                   favClass = "fa-star";
-                 }
-               } %>
-            <i class="fa <%= favClass %>" aria-hidden="true"></i>
-          </h1>
+<head>
+  <% include partials/_head %>
+</head>
+
+<body>
+  <div id="container">
+    <div id="main">
+
+      <% include partials/_nav %>
+
+      <div id="map-details-container" class="container-fluid" data-map-id="<%= template.id %>">
+        <div class="row">
+          <div class="col-md-10 offset-md-1" align="center">
+            <h1>
+              <%= template.title %>
+                <% let favClass = "fa-star-o";
+              for (key in favourites) {
+                if (template.id === favourites[key].id) {
+                  favClass = "fa-star";
+                }
+              } %>
+                  <i class="fa <%= favClass %>" aria-hidden="true"></i>
+            </h1>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div id="map-container" class="container content-iframe col-md-12" style="height: 500px; width: 690px;">
-              <!-- This div holds the dynamically rendered map.-->
+        <div class="row">
+          <div id="map-container" class="container content-iframe col-md-12" style="height: 500px; width: 690px;">
+            <!-- This div holds the dynamically rendered map.-->
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 offset-md-1" align="justify">
-        <h4><%= template.description %></h4>
+        <div class="row">
+          <div class="col-md-10 offset-md-1" align="justify">
+            <h4>
+              <%= template.description %>
+            </h4>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <!-- API Links to load the maps -->
+  <script src="/scripts/view-map.js"></script>
 
-    <!-- API Links to load the maps -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/scripts/view-map.js" ></script>
-
-    <% include partials/_foot %>
+  <% include partials/_foot %>
 
 
-  </body>
+</body>
+
 </html>
-
-

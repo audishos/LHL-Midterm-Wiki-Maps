@@ -1,43 +1,55 @@
 <html lang="en">
-    <head>
-        <% include partials/_head %>
-        <title>MAP ATTACK</title>
-    </head>
-    <body>
-          <% include partials/_nav %>    
 
-        <h1 class = "text-center list-header">Here's a list of Maps! Get navigating!</h1>
-        <div class="container table-responsive table-hover table-bordered">
-            <table class="table .table-hover">
-                <thead>
-                    <tr>
-                        <th class = "text-center">Map Titles</th>
-                        <th class = "text-center">Description</th>
-                        <th class = "text-center"># of Favorites</th>
-                    </tr>
-                </thead>
-                <tbody>
+<head>
+  <% include partials/_head %>
+    <title>MAP ATTACK</title>
+</head>
 
-                    <% for(var i = 0; i < results.length; i++) { %>                    
-                    <tr>
-                    <td><div class="col text-center links-holder">
-                            <a href = "/maps/<%= i+1 %>/view" > <%= results[i].title %> </a>
-                            </div></td>
-                    <td class="col-6 text-center">
-                            <%= results[i].description %>
-                    </td>
-                    <td class="col text-center">
-                            FAVORITES
-                    </td>
-                    </tr>      
-                    <% } %>                        
-                     
-                </tbody>
-            </table>
-        </div>  
+<body>
+  <div id="container">
+    <div id="main">
 
-        </div>
-        <% include partials/_foot %>
-      
-    </body>
+      <% include partials/_nav %>
+
+      <h1 class="text-center list-header">Here's a list of Maps! Get navigating!</h1>
+      <div class="container table-responsive table-hover table-bordered">
+        <table class="table .table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">Map Titles</th>
+              <th class="text-center">Description</th>
+              <th class="text-center"># of Favorites</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i = 0; i < results.length; i++) { %>
+              <tr>
+                <td>
+                  <div class="col text-center links-holder">
+                    <a href="/maps/<%= i+1 %>/view">
+                      <%= results[i].title %>
+                    </a>
+                  </div>
+                </td>
+                <td class="col-6 text-center">
+                  <%= results[i].description %>
+                </td>
+                <td class="col text-center">
+                  FAVORITES
+                </td>
+              </tr>
+              <% } %>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <% include partials/_foot %>
+
+</body>
+
 </html>
