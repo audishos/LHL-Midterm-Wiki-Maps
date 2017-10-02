@@ -260,12 +260,14 @@ module.exports = function makeDataHelpers(knex){
         }
       });
     },
+
     savePoint: (point, callback) =>{
       delete point.id;
       knex('points').insert(point)
       .then( ()=> callback(null))
       .catch((error) => callback(error))
     },
+
     deletePoints: (point, callback)=>{
       knex('points').where('id', '=', point).del()
       .then(()=>{
