@@ -26,11 +26,12 @@ function createMapWithPoints(data) {
       });
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            var contentString = `<div style="color:black;">
-            <p style = "font-size: larger;margin: 0; font-weight: bold;color: #ab5348;">${markers [i][7]}</p></br>
-            <span><img src = "${markers[i][3]}" style="width:150px;height:180px;float:right;"></span></br>
-            <p style = "margin: 0;font-size: larger;font-weight: bolder;">${markers[i][1]}</p>
-          </div>`;
+            var contentString = 
+            `<div class = "pop-up-marker-div">
+              <p class="pop-up-marker-p1 text-center">${markers [i][7]}</p></br>
+              <p class="pop-up-marker-p2">${markers[i][1]}</p>
+              <p class="pop-up-marker-img"><img class = "img-window" src = "${markers[i][3]}"></p>
+            </div>`;
               infowindow.setContent(contentString);
               infowindow.open(map, marker);
           }
@@ -47,6 +48,31 @@ function createMapWithPoints(data) {
      map.setZoom(12);
     };
   })
+  //-------------------------------
+  google.maps.event.addListener(infowindow, 'domready', function() {
+    
+       var iwOuter = $('.gm-style-iw');
+       var iwBackground = iwOuter.prev();
+       // Remove the background shadow DIV
+       iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+       // Remove the white background DIV
+       iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+    
+       var iwCloseBtn = iwOuter.next();
+       
+       // Apply the desired effect to the close button
+       iwCloseBtn.css({
+         opacity: '1', 
+         right: '38px', top: '3px', 
+         border: '7px solid #48b5e9',
+         'border-radius': '13px', 
+         'box-shadow': '0 0 5px #3990B9'
+         });
+       
+       iwCloseBtn.mouseout(function(){
+         $(this).css({opacity: '1'});
+       });
+    })
 }
 
 //AJAX call to obtain the points to plot on the map
