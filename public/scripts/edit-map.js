@@ -139,8 +139,13 @@ function getPointsOnMap(callback){
 }
 //----------creates list of points in html div
 function addToListOfPoints(point){
-  var html = "<h3 class='point " + point.id + "' data-point-id='" + point.id + "'>" + point.title + "<h3>";
-  document.getElementById("points").innerHTML = document.getElementById("points").innerHTML + html;
+  var listItem = document.createElement("li");
+
+  listItem.className = "list-group-item list-group-item-action point " + point.id;
+  listItem.dataset.pointid = (point.id)
+  listItem.innerHTML = "<i class='fa fa-map-marker' aria-hidden='true'></i>" + point.title;
+
+  document.getElementById("points").append(listItem);
 }
 
 //-------------------------renders map with all existing point information from database

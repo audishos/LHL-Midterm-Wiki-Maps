@@ -16,40 +16,50 @@
 
       <% include partials/_nav %>
 
-      <br>
-      <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-4">
-          <h1 class="edit-map-title" id="mapId" data-mapid=<%=templateVars.maps.id%> data-userid=<%=templateVars.maps.user_id%>>
-            <%= templateVars.maps.title %>
-          </h1>
-        </div>
-        <div class="col-lg-3 search-form">
-          <div class="search-center">
-            <Label> Center On </Label>
-            <input class="city-country">
-            <button class="btn btn-info" id="search-city">Center</button>
-          </div>
-        </div>
-        <div class="col-lg-3"></div>
-      </div>
-      <div id="main-content" class="row">
-        <div class="col-lg-2">
-          <h2>Double click to delete!</h2>
-          <div id="points">
-          </div>
-          <br>
-          <h2>Simply click somewhere on the map to add points!!</h2>
-        </div>
-        <div class="col-lg-10">
-          <div class="jumbotron display-edit-map" id="map-container"></div>
-        </div>
-      </div>
-      <button class="save-button btn btn-info"><h1>SAVE CHANGES</h1></button>
-    </div>
-  </div>
+      <div id="edit-container" class="container-fluid">
 
-  <% include partials/_foot %>
+        <div class="row">
+          <div class="col-sm-8 offset-sm-2">
+            <h1 class="edit-map-title" id="mapId" data-mapid=<%=templateVars.maps.id%> data-userid=
+              <%=templateVars.maps.user_id%>>
+                <%= templateVars.maps.title %>
+            </h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 offset-sm-2 search-form">
+            <div class="search-center">
+              <Label> Center On </Label>
+              <input class="city-country">
+              <button class="btn btn-info" id="search-city">Center</button>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h2>Simply click somewhere on the map to add points!!</h2>
+          </div>
+        </div>
+
+        <div id="main-content" class="row">
+          <div class="col-sm-2">
+            <h2>Double click to delete!</h2>
+            <ul id="points" class="list-group">
+            </ul>
+          </div>
+          <div class="col-sm-10">
+            <div class="display-edit-map" id="map-container"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 offset-sm-2">
+          <button class="save-button btn btn-info"><h1>SAVE CHANGES</h1></button>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <% include partials/_foot %>
 
 </body>
 

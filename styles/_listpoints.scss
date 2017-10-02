@@ -4,7 +4,10 @@
 }
 
 .point{
-  background-color:beige;
+
+  a {
+    color: white;
+  }
 }
 
 .highlighted{
@@ -23,11 +26,3 @@
   margin: 10px;
 }
 
-.search-form{
-  background-color: $color4;
-  border-radius: 5px;
-  padding: 10px;
-  margin: auto 20px;
-  text-align: center;
-  box-sizing: content-box;
-}
