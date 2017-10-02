@@ -14,11 +14,11 @@ exports.seed = (knex, Promise) => {
     }),
     knex('users').insert({
       id: 2,
-      first_name: faker.name.firstName(),
-      last_name: faker.name.lastName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      created_at: faker.date.past()
+      first_name: "Nicholas",
+      last_name: "Smilovic",
+      email: "nicholas@gmail.com",
+      password: "abcd1234",
+      created_at: "2017-05-25T10:19:35.560Z"
     }),
     knex('users').insert({
       id: 3,
