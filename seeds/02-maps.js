@@ -21,28 +21,28 @@ exports.seed = (knex, Promise) => {
     knex('maps').insert({
       id: 3,
       user_id: 4,
-      title: faker.lorem.words(),
+      title: faker.company.catchPhrase(),
       description: faker.lorem.paragraph(),
       created_at: faker.date.past()
     }),
     knex('maps').insert({
       id: 4,
       user_id: 4,
-      title: faker.lorem.words(),
+      title: faker.company.catchPhrase(),
       description: faker.lorem.paragraph(),
       created_at: faker.date.past()
     }),
     knex('maps').insert({
       id: 5,
       user_id: 6,
-      title: faker.lorem.words(),
+      title: faker.company.catchPhrase(),
       description: faker.lorem.paragraph(),
       created_at: faker.date.past()
     }),
     knex('maps').insert({
       id: 6,
       user_id: 3,
-      title: faker.lorem.words(),
+      title: faker.company.catchPhrase(),
       description: faker.lorem.paragraph(),
       created_at: faker.date.past()
     })
