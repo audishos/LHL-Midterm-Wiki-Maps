@@ -1,0 +1,80 @@
+markers = [
+["2016-11-19T15:46:29.931Z", "Great Thai restaurant with excellent Green curry!", 1, "http://lorempixel.com/640/480/cats", "43.665120", "-79.384809", 1, "Thai Fantasy", 1],
+["2017-07-18T19:32:24.643Z", "Great pizza place with a variety of pizzas and oth…orites. Excellent home delivery service included!", 2, "http://lorempixel.com/640/480/cats", "43.643378", "-79.392022", 1, "Dominos Pizza", 1],
+["2016-10-05T16:54:35.146Z", "Longtime, casual eatery specializing in oysters & seasonal seafood dishes, plus drinks.", 3, "http://lorempixel.com/640/480/cats", "43.644947", "-79.396845", 1, "Rodney's Oyster House", 1],
+["2017-03-12T08:15:44.967Z", "Flame-seared sushi is the specialty at this Japanese fine-dining destination with soaring ceilings.", 4, "http://lorempixel.com/640/480/cats", "43.641182", "-79.377493", 1, "Miku Toronto", 2],
+["2016-11-02T04:12:07.299Z", "Refined menu & decor evoke the North at the Hilton, plus a chic bar mixing signature cocktails.", 5, "http://lorempixel.com/640/480/cats", "43.649616", "-79.385447", 1, "Tundra Restaurant and Bar", 3]
+];
+
+ 
+ <% function createMapWithPoints(markers) {
+  
+  
+    var myOptions = {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+    };
+    map = new google.maps.Map(document.getElementById("map-container"),myOptions);
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    var bounds = new google.maps.LatLngBounds();
+  
+    for (i = 0; i < markers.length; i++) {
+        var pos = new google.maps.LatLng(markers[i][4], markers[i][5]);
+        bounds.extend(pos);
+        marker = new google.maps.Marker({
+            position: pos,
+            map: map
+        });
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              var contentString = 
+              `<div class = "pop-up-marker-div">
+                <p class="pop-up-marker-p1 text-center">${markers [i][7]}</p></br>
+                <p class="pop-up-marker-p2">${markers[i][1]}</p>
+                <p class="pop-up-marker-img"><img class = "img-window" src = "${markers[i][3]}"></p>
+              </div>`;
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+    map.fitBounds(bounds);
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+      if(markers.length <=0){
+        map.setCenter({lat: 43.6532, lng: -79.3832});
+        map.setZoom(8)
+      }
+      if(map.getZoom() > 18){
+       map.setZoom(12);
+      };
+    })
+    //-------------------------------
+    google.maps.event.addListener(infowindow, 'domready', function() {
+      
+         var iwOuter = $('.gm-style-iw');
+         var iwBackground = iwOuter.prev();
+         // Remove the background shadow DIV
+         iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+         // Remove the white background DIV
+         iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+      
+         var iwCloseBtn = iwOuter.next();
+         
+         // Apply the desired effect to the close button
+         iwCloseBtn.css({
+           opacity: '1', 
+           right: '38px', top: '3px', 
+           border: '7px solid #48b5e9',
+           'border-radius': '13px', 
+           'box-shadow': '0 0 5px #3990B9'
+           });
+         
+         iwCloseBtn.mouseout(function(){
+           $(this).css({opacity: '1'});
+         });
+      })
+    }
+    %>
+
+    createMapWithPoints(markers);
