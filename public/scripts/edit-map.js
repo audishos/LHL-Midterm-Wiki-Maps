@@ -142,7 +142,7 @@ function addToListOfPoints(point){
   var listItem = document.createElement("li");
 
   listItem.className = "list-group-item list-group-item-action point " + point.id;
-  listItem.dataset.pointid = (point.id)
+  listItem.setAttribute = ("data-point-id", point.id)
   listItem.innerHTML = "<i class='fa fa-map-marker' aria-hidden='true'></i>" + point.title;
 
   document.getElementById("points").append(listItem);

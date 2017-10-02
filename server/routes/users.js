@@ -13,6 +13,13 @@ module.exports = (DataHelpers) => {
 
   });
 
+  router.get("/logout", (req, res) => {
+
+    req.session.user_id = null;
+    res.redirect("/");
+
+  })
+
   // display the user profile page for the current authed user
   router.get("/profile", (req, res) => {
 
