@@ -1,0 +1,36 @@
+nav {
+
+  background-color: $color1;
+
+  .navbar-brand, a {
+    color: $color5;
+  }
+
+  a:hover {
+    color: $color4;
+  }
+
+  .nav-btn {
+    background-color: $color2;
+    color: white;
+    border-color: white;
+  }
+
+  #btn-create-map {
+    background-color: $cta;
+    color: $color5;
+    border-color: $color5;
+  }
+
+  #btn-create-map:hover {
+    background-color: $color2;
+    color: $color5;
+  }
+
+  .navbar-toggler {
+
+    .navbar-toggler-icon {
+      color: $color5;
+    }
+  }
+}
