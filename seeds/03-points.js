@@ -63,26 +63,48 @@ exports.seed = (knex, Promise) => {
       id: 6,
       user_id: 2,
       map_id: 2,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
+      title: "Royal Ontario Museum",
+      image: "http://www.canadianseniors.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/o/u/outside.jpg",
+      description: "The Royal Ontario Museum is a museum of art, world culture and natural history in Toronto, Ontario, Canada.",
+      longitude: -79.3947771,
+      latitude: 43.6677097,
       created_at: faker.date.past()
     }),
     knex('points').insert({
       id: 7,
       user_id: 2,
       map_id: 2,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
+      title: "Aga Khan Museum",
+      image: "https://c1.staticflickr.com/6/5593/15286007722_42574f452d_b.jpg",
+      description: "Museum noted for its bright white, contemporary architecture & exhibits tracing Islamic culture.",
+      longitude: -79.3322955,
+      latitude: 43.7251002,
       created_at: faker.date.past()
     }),
     knex('points').insert({
       id: 8,
+      user_id: 2,
+      map_id: 2,
+      title: "Art Gallery of  Ontario",
+      image: "http://www.ellisdon.com/wp-content/uploads/2016/02/single_column_figure3@2x-16.jpg",
+      description: "Large gallery with huge Canadian collection, European masterworks & a major Frank Gehry renovation.",
+      longitude: -79.394701,
+      latitude: 43.6536066,
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
+      id: 9,
+      user_id: 2,
+      map_id: 2,
+      title: "Gardiner Museum",
+      image: "https://images.adsttc.com/media/images/55e6/1615/2347/5d91/1500/0079/slideshow/1304886481_gardiner-ph-tom-arban-photography-12.jpg?1441142287",
+      description: "Besides exhibits, this ceramics museum offers classes, lectures & tours, plus a bistro & gift shop.",
+      longitude: -79.3930829,
+      latitude: 43.6681404,
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
+      id: 10,
       user_id: 3,
       map_id: 3,
       title: faker.company.companyName(),
@@ -93,7 +115,7 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
-      id: 9,
+      id: 11,
       user_id: 3,
       map_id: 4,
       title: faker.company.companyName(),
@@ -104,7 +126,7 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
-      id: 10,
+      id: 12,
       user_id: 6,
       map_id: 5,
       title: faker.company.companyName(),
@@ -115,30 +137,8 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
-      id: 11,
-      user_id: 3,
-      map_id: 6,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
-      created_at: faker.date.past()
-    }),
-    knex('points').insert({
-      id: 12,
-      user_id: 2,
-      map_id: 6,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
-      created_at: faker.date.past()
-    }),
-    knex('points').insert({
       id: 13,
-      user_id: 5,
+      user_id: 3,
       map_id: 6,
       title: faker.company.companyName(),
       image: faker.image.cats(),
@@ -149,7 +149,7 @@ exports.seed = (knex, Promise) => {
     }),
     knex('points').insert({
       id: 14,
-      user_id: 5,
+      user_id: 2,
       map_id: 6,
       title: faker.company.companyName(),
       image: faker.image.cats(),
@@ -160,28 +160,6 @@ exports.seed = (knex, Promise) => {
     }),
     knex('points').insert({
       id: 15,
-      user_id: 4,
-      map_id: 4,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
-      created_at: faker.date.past()
-    }),
-    knex('points').insert({
-      id: 16,
-      user_id: 1,
-      map_id: 2,
-      title: faker.company.companyName(),
-      image: faker.image.cats(),
-      description: faker.lorem.paragraph(),
-      longitude: faker.address.longitude(),
-      latitude: faker.address.latitude(),
-      created_at: faker.date.past()
-    }),
-    knex('points').insert({
-      id: 17,
       user_id: 5,
       map_id: 6,
       title: faker.company.companyName(),
@@ -192,9 +170,9 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
-      id: 18,
-      user_id: 3,
-      map_id: 2,
+      id: 16,
+      user_id: 5,
+      map_id: 6,
       title: faker.company.companyName(),
       image: faker.image.cats(),
       description: faker.lorem.paragraph(),
@@ -203,7 +181,7 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
-      id: 19,
+      id: 17,
       user_id: 4,
       map_id: 4,
       title: faker.company.companyName(),
@@ -214,7 +192,51 @@ exports.seed = (knex, Promise) => {
       created_at: faker.date.past()
     }),
     knex('points').insert({
+      id: 18,
+      user_id: 1,
+      map_id: 5,
+      title: faker.company.companyName(),
+      image: faker.image.cats(),
+      description: faker.lorem.paragraph(),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
+      id: 19,
+      user_id: 5,
+      map_id: 6,
+      title: faker.company.companyName(),
+      image: faker.image.cats(),
+      description: faker.lorem.paragraph(),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
       id: 20,
+      user_id: 3,
+      map_id: 4,
+      title: faker.company.companyName(),
+      image: faker.image.cats(),
+      description: faker.lorem.paragraph(),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
+      id: 21,
+      user_id: 4,
+      map_id: 4,
+      title: faker.company.companyName(),
+      image: faker.image.cats(),
+      description: faker.lorem.paragraph(),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
+      created_at: faker.date.past()
+    }),
+    knex('points').insert({
+      id: 22,
       user_id: 5,
       map_id: 3,
       title: faker.company.companyName(),
