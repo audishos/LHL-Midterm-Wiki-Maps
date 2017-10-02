@@ -4,17 +4,16 @@ var newMarkerIncrement = 1;
 var map;
 var newMarkers = [];
 var markersDeleted = [];
+var allMarkers = [];
 
 //---function is run when page is loaded
 function initMap(){
   // renderMap(mapId)
   map = new google.maps.Map(document.getElementById('map-container'), {
     zoom: 8,
-    //should be a calculated center using point position from db
     //toronto
     center: {lat: 43.6532, lng: -79.3832},
   });
-  //--once map is loaded add marker
   google.maps.event.addListenerOnce(map, 'idle', function(){
     // do something only the first time the map is loaded
     renderPoints();
@@ -24,7 +23,6 @@ function initMap(){
 //add listener for the submission of new marker information
 function addListenerToNewMarkerSubmission(marker){
   $("#new-marker-submit").on('click', function(event){
-    //db reference lat and lng as full words!!!!!!!!
     var pathToForm = event.target.parentElement.parentElement.getElementsByClassName("formgroup");
     var point = {
       id: event.target.parentElement.parentElement.getAttribute("data-point-id"),
@@ -86,6 +84,7 @@ function addMarker(point, bounds){
     pointDescription = point.description ? point.description : "";
     pointImage = point.image ? point.image : "";
     newMarkers.push(point);
+    allMarkers.push(point);
 
       //commited point get rendered fully
       var contentString = "\
@@ -234,7 +233,6 @@ function saveNewMarkerToDatabase(point){
       console.log("successfully saved marker")
     },
     error: function(error){
-      debugger;
       console.log("could not save new marker to database ", error);
     }
   })
@@ -256,7 +254,6 @@ function centerMap(cityCountry){
     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityCountry,
     method: "GET",
     success: function(data){
-      debugger;
       map.setCenter(data.results[0].geometry.location);
       map.setZoom(8)
     },
@@ -266,6 +263,17 @@ function centerMap(cityCountry){
   })
 }
 
+function deleteListener(){
+  $(".list-group-item").on('click', function(){
+    pos = ({lat:Number(allMarkers[1].latitude),lng:Number(37)});
+    var marker = new google.maps.Marker({
+    position:pos,
+    animation: google.maps.Animation.DROP,
+    map:map
+  });
+
+  })
+}
 //-----------------------------when page is loaded
 $(document).ready(function(){
   mapId = $("#mapId").data("mapid");

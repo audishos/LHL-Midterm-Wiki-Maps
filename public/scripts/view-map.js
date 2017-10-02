@@ -26,7 +26,7 @@ function createMapWithPoints(data) {
       });
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            var contentString = 
+            var contentString =
             `<div class = "pop-up-marker-div">
               <p class="pop-up-marker-p1">${markers [i][7]}</p></br>
               <p class="pop-up-marker-p2">${markers[i][1]}</p>
@@ -50,25 +50,25 @@ function createMapWithPoints(data) {
   })
   //-------------------------------
   google.maps.event.addListener(infowindow, 'domready', function() {
-    
+
        var iwOuter = $('.gm-style-iw');
        var iwBackground = iwOuter.prev();
        // Remove the background shadow DIV
        iwBackground.children(':nth-child(2)').css({'display' : 'none'});
        // Remove the white background DIV
        iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-    
+
       //  var iwCloseBtn = iwOuter.next();
-       
+
        // Apply the desired effect to the close button
       //  iwCloseBtn.css({
-      //    opacity: '1', 
-      //    right: '38px', top: '3px', 
+      //    opacity: '1',
+      //    right: '38px', top: '3px',
       //    border: '7px solid #48b5e9',
-      //    'border-radius': '13px', 
+      //    'border-radius': '13px',
       //    'box-shadow': '0 0 5px #3990B9'
       //    });
-       
+
       //  iwCloseBtn.mouseout(function(){
       //    $(this).css({opacity: '1'});
       //  });
