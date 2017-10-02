@@ -66,7 +66,7 @@ module.exports = function makeDataHelpers(knex){
     getUserFavourites: (userId) => {
 
       const promise = new Promise( (resolve, reject) => {
-        if (userId > 0) {
+        if (userId >= 0) {
           knex.raw(`
             select maps.*,
             (select count(*) from favourites
@@ -84,7 +84,7 @@ module.exports = function makeDataHelpers(knex){
             reject(err);
           })
         } else {
-          reject(`userId: ${userId} must be > 0`);
+          reject(`userId: ${userId} must be >= 0`);
         }
       })
 
