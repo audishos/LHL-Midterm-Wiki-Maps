@@ -18,32 +18,11 @@ body {
   padding-bottom: 50px;
 }
 
-nav {
 
-  background-color: $color1;
-
-  .navbar-brand, a {
-    color: $color5;
-    margin-left: 1em;
-    margin-right: 1em;
-  }
-
-  #btn-create-map {
-    background-color: $cta;
-    color: $color5;
-    border-color: $color5;
-    margin-left: 1em;
-  }
-
-  #btn-create-map:hover {
-    background-color: $color2;
-    color: $color5;
-  }
-}
 
 #main {
   overflow:auto;
-  padding-bottom:120px; /* this needs to be bigger than footer height*/
+  padding-bottom:180px; /* this needs to be bigger than footer height*/
 }
 
 h1 {
@@ -79,30 +58,8 @@ h2, h3, h4, p, label {
   background-color: #EEE;
 }
 
-footer {
-  background-color: $color1;
-  color: $color5;
-  height: 120px;
-  position: relative;
-  margin-top: -120px; /* negative value of footer height */
-  clear:both;
-  padding-top:20px;
-
-  .mb-0 {
-    font-size:medium;
-  }
-
-  .blockquote, .blockquote-footer {
-    margin:0;
-    font-size: medium;
-  }
-
-}
-
-.my-2{
-  margin: 0 10px;
-}
-
+@import 'nav';
+@import 'foot';
 @import 'profile';
 @import 'create-map';
 @import 'view-map';
