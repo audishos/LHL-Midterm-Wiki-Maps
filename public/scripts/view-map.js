@@ -28,7 +28,7 @@ function createMapWithPoints(data) {
           return function() {
             var contentString = 
             `<div class = "pop-up-marker-div">
-              <p class="pop-up-marker-p1 text-center">${markers [i][7]}</p></br>
+              <p class="pop-up-marker-p1">${markers [i][7]}</p></br>
               <p class="pop-up-marker-p2">${markers[i][1]}</p>
               <p class="pop-up-marker-img"><img class = "img-window" src = "${markers[i][3]}"></p>
             </div>`;
