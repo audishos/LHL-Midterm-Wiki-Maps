@@ -59,51 +59,33 @@ module.exports = (DataHelpers) => {
       let templateVars = {};
       let favourited = false;
 
-      if (req.session.user_id) {
-        Promise.all([
-          DataHelpers.getMapObject(req.params.mapid)
-          .then( response => {
-            templateVars.template = response[0];
-          })
-          .catch( error => {
-            res.status(500).send()
-            return;
-          }),
-
-          DataHelpers.getUserFavourites(req.session.user_id)
-          .then( response => {
-            templateVars.favourites = response;
-          })
-          .catch( error => {
-            res.status(500).send(error);
-          })
-
-        ])
-        .then( response => {
-          if(templateVars.template) {
-            res.render("view", templateVars);
-          } else {
-            res.render("redirected.ejs");
-          }
-
-        });
-      }
-      else {
+      Promise.all([
         DataHelpers.getMapObject(req.params.mapid)
         .then( response => {
           templateVars.template = response[0];
-          templateVars.favourites = null;
-          if(templateVars.template) {
-            res.render("view", templateVars);
-          } else {
-            res.render("redirected.ejs");
-          }
         })
         .catch( error => {
           res.status(500).send()
           return;
-        });
-      }
+        }),
+
+        DataHelpers.getUserFavourites(req.session.user_id)
+        .then( response => {
+          templateVars.favourites = response;
+        })
+        .catch( error => {
+          res.status(500).send(error);
+        })
+
+      ])
+      .then( response => {
+        if(templateVars.template) {
+          res.render("view", templateVars);
+        } else {
+          res.render("redirected.ejs");
+        }
+
+      });
 
     });
     //--------------------------EDIT Page for Specific Map--------------------------------

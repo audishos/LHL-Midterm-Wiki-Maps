@@ -17,6 +17,41 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 
+const authMiddleWare = (req, res, next) => {
+
+  const blacklist = [
+    /\/(users)\/(profile)/g,
+    /\/(maps)\/\d*\/(edit)/g,
+    /\/(maps)\/(new)/g
+  ];
+
+  if (!req.session.user_id) {
+    let blacklisted = false;
+    req.session.user_id = null;
+
+    for (let route of blacklist) {
+      route.test(req.path) ? blacklisted = true : null;
+    }
+
+    if (blacklisted) {
+      req.user = null;
+      res.redirect("/");
+      return;
+    }
+  }
+
+  DataHelpers.getUser(req.session.user_id)
+  .then( user => {
+    req.user = user;
+    next();
+  })
+  .catch( () => {
+    req.user = null;
+    req.session.user_id = null;
+    next();
+  });
+}
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -29,6 +64,8 @@ app.use(cookieSession({
     "26cb941323ef3be96a33e7dec1a6e8e4a9075e3f55b4eb818a292c6ad368f0e9"
   ]
 }));
+
+app.use(authMiddleWare);
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
