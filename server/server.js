@@ -23,7 +23,7 @@ const authMiddleWare = (req, res, next) => {
     /\/(users)\/(profile)/g,
     /\/(maps)\/\d*\/(edit)/g,
     /\/(maps)\/(new)/g
-  ]
+  ];
 
   if (!req.session.user_id) {
     let blacklisted = false;
