@@ -9,3 +9,53 @@
   }
 
 }
+
+.pop-up-marker-div {
+  color:green;
+}
+
+.pop-up-marker-p1 {
+  font-size:x-large;
+  margin:0;
+  margin-top: 3px; 
+  font-weight: bold;
+  color: #ab5348;
+}
+
+.img-window{
+  margin-top: 5px;
+  width:100%;
+  height:250px;
+  // max-width:100%;
+  // max-height:100%;
+  // display:block;
+}
+
+.pop-up-marker-p2 {
+  margin: 0;
+  font-size: larger;
+  font-weight: bolder;
+  color: black;
+}
+
+#iw-container  .iw-title {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  padding: 10px;
+  background-color: #48b5e9;
+  color: white;
+  margin: 1px;
+  border-radius: 2px 2px 0 0; /* In accordance with the rounding of the default infowindow corners. */
+}
+
+.gm-style-iw {
+  width: 450px !important;
+  // height:450px;
+  top: 15px !important; // move the infowindow 15px down
+  left: 0 !important;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  border: 1px solid rgba(72, 181, 233, 0.6);
+  border-radius: 2px 2px 0 0;
+}
